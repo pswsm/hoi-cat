@@ -10,7 +10,8 @@ hcat_catalan_question = {
 		available = { hcat_catalonia_can_press_for_autonomy = yes }
 		cost = 50
 		fire_only_once = no
-		days_re_enable = 90
+		# Stays on the panel with a countdown (like the vanilla SCW decisions).
+		days_remove = 90
 		complete_effect = {
 			add_to_variable = { global.hcat_autonomy = 5 tooltip = hcat_autonomy_change_tt }
 			hcat_clamp_autonomy = yes
@@ -28,7 +29,8 @@ hcat_catalan_question = {
 		available = { hcat_catalonia_can_press_for_autonomy = yes }
 		cost = 75
 		fire_only_once = no
-		days_re_enable = 120
+		# Stays on the panel with a countdown (like the vanilla SCW decisions).
+		days_remove = 120
 		complete_effect = {
 			add_to_variable = { global.hcat_autonomy = 8 tooltip = hcat_autonomy_change_tt }
 			hcat_clamp_autonomy = yes
