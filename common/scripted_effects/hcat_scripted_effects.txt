@@ -5,6 +5,7 @@
 #   50  = the 1932 Statute of Autonomy (game start)
 #   100 = de facto independence
 # Spanish-side content pushes it down, Catalan-side content pushes it up.
+# Global flags and variables still need a scope to run in; any country will do.
 
 hcat_init = {
 	if = {
@@ -14,21 +15,23 @@ hcat_init = {
 	}
 }
 
-# Usage: hcat_change_autonomy = { VALUE = 10 }  (negative values allowed)
-hcat_change_autonomy = {
-	add_to_variable = { global.hcat_autonomy = $VALUE$ }
-	clamp_variable = {
-		var = global.hcat_autonomy
-		min = 0
-		max = 100
+# HoI4 scripted effects take no parameters, so change the track with:
+#   add_to_variable = { global.hcat_autonomy = <n> tooltip = hcat_autonomy_change_tt }
+#   hcat_clamp_autonomy = yes
+hcat_clamp_autonomy = {
+	hidden_effect = {
+		clamp_variable = {
+			var = global.hcat_autonomy
+			min = 0
+			max = 100
+		}
 	}
 }
 
-# Usage: hcat_settle_catalan_question = { OUTCOME = independence }
-# OUTCOME is one of: integration, status_quo, independence
+# Set the outcome flag first: hcat_outcome_integration, hcat_outcome_status_quo
+# or hcat_outcome_independence. Then call hcat_settle_catalan_question = yes.
 hcat_settle_catalan_question = {
 	set_global_flag = hcat_catalan_question_settled
-	set_global_flag = hcat_outcome_$OUTCOME$
 }
 
 # Country scope: Catalonia.

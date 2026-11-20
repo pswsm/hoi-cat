@@ -9,7 +9,8 @@ hcat_catalan_question = {
 		cost = 0
 		fire_only_once = no
 		complete_effect = {
-			hcat_change_autonomy = { VALUE = 10 }
+			add_to_variable = { global.hcat_autonomy = 10 tooltip = hcat_autonomy_change_tt }
+			hcat_clamp_autonomy = yes
 		}
 		ai_will_do = { factor = 0 }
 	}
@@ -20,7 +21,8 @@ hcat_catalan_question = {
 		cost = 0
 		fire_only_once = no
 		complete_effect = {
-			hcat_change_autonomy = { VALUE = -10 }
+			add_to_variable = { global.hcat_autonomy = -10 tooltip = hcat_autonomy_change_tt }
+			hcat_clamp_autonomy = yes
 		}
 		ai_will_do = { factor = 0 }
 	}

@@ -13,8 +13,15 @@ A single global variable, `global.hcat_autonomy` (0–100), tracks where Catalon
 | 50    | 1932 Statute of Autonomy (game start) |
 | 100   | De facto independence |
 
-Change it only through `hcat_change_autonomy = { VALUE = <n> }`, which clamps the result.
-When a path is locked in, call `hcat_settle_catalan_question = { OUTCOME = <outcome> }`.
+HoI4 scripted effects take no parameters, so change it with:
+
+```
+add_to_variable = { global.hcat_autonomy = <n> tooltip = hcat_autonomy_change_tt }
+hcat_clamp_autonomy = yes
+```
+
+When a path is locked in, set `hcat_outcome_<integration|status_quo|independence>` as a global
+flag, then call `hcat_settle_catalan_question = yes`.
 
 ## Catalonia as an Autonomous Community
 

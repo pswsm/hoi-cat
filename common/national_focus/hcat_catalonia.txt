@@ -34,7 +34,8 @@ focus_tree = {
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			hcat_change_autonomy = { VALUE = 5 }
+			add_to_variable = { global.hcat_autonomy = 5 tooltip = hcat_autonomy_change_tt }
+			hcat_clamp_autonomy = yes
 		}
 	}
 
@@ -51,7 +52,8 @@ focus_tree = {
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			hcat_change_autonomy = { VALUE = 10 }
+			add_to_variable = { global.hcat_autonomy = 10 tooltip = hcat_autonomy_change_tt }
+			hcat_clamp_autonomy = yes
 		}
 	}
 
