@@ -1,4 +1,4 @@
-﻿# HCAT override of vanilla 1.19.4 common/national_focus/spain.txt.
+﻿# HCAT override of vanilla 1.20.0 common/national_focus/spain.txt.
 # Only change: the `shared_focus = SPR_hcat_the_catalan_question` line in spanish_focus.
 ### search_filters = {FOCUS_FILTER_POLITICAL}
 ### search_filters = {FOCUS_FILTER_RESEARCH}

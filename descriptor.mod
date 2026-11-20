@@ -5,4 +5,4 @@ tags={
 	"Events"
 }
 name="HoI IV - Catalunya"
-supported_version="1.19.*"
+supported_version="1.20.*"

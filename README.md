@@ -2,7 +2,7 @@
 
 A Hearts of Iron IV mod that adds depth to the relationship between Catalonia and Spain.
 
-Targets HoI4 1.19.x. See [docs/DESIGN.md](docs/DESIGN.md) for the design outline.
+Targets HoI4 1.20.x. See [docs/DESIGN.md](docs/DESIGN.md) for the design outline.
 
 ## Layout
 
