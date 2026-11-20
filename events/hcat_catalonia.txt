@@ -1,0 +1,43 @@
+# HoI IV - Catalunya: events fired to Catalonia.
+add_namespace = hcat_catalonia
+
+# Spain accepts the Catalan State. FROM is Spain.
+country_event = {
+	id = hcat_catalonia.1
+	title = hcat_catalonia.1.t
+	desc = hcat_catalonia.1.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	option = {
+		name = hcat_catalonia.1.a
+		add_stability = 0.05
+	}
+}
+
+# Spain refuses and marches on Catalonia. FROM is Spain.
+country_event = {
+	id = hcat_catalonia.2
+	title = hcat_catalonia.2.t
+	desc = hcat_catalonia.2.desc
+	picture = GFX_report_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = hcat_catalonia.2.a
+		add_war_support = 0.10
+	}
+}
+
+# Spain breaks the Statute guarantee (status quo path). FROM is Spain.
+country_event = {
+	id = hcat_catalonia.3
+	title = hcat_catalonia.3.t
+	desc = hcat_catalonia.3.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	option = {
+		name = hcat_catalonia.3.a
+	}
+}

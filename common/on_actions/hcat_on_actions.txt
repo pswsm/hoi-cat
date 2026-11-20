@@ -15,6 +15,12 @@ on_actions = {
 		}
 	}
 
+	on_monthly_CAT = {
+		effect = {
+			hcat_spanish_weakness_drift = yes
+		}
+	}
+
 	# ROOT is the winner, FROM the loser, which still exists at this point.
 	on_civil_war_end_before_annexation = {
 		effect = {

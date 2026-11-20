@@ -58,3 +58,19 @@ hcat_autonomy_low_enough_to_integrate = {
 		check_variable = { global.hcat_autonomy < 26 }
 	}
 }
+
+# Any scope. Catalan autonomy is high enough to proclaim the Catalan State.
+hcat_autonomy_high_enough_to_proclaim = {
+	custom_trigger_tooltip = {
+		tooltip = hcat_autonomy_high_enough_to_proclaim_tt
+		check_variable = { global.hcat_autonomy > 79 }
+	}
+}
+
+# Country scope: Catalonia, as a Spanish subject, with the question still open.
+hcat_catalonia_can_press_for_autonomy = {
+	original_tag = CAT
+	is_subject = yes
+	OVERLORD = { hcat_is_spain = yes }
+	hcat_catalan_question_settled = no
+}

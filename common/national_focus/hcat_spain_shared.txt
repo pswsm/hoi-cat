@@ -128,6 +128,7 @@ shared_focus = {
 	}
 
 	completion_reward = {
+		hcat_break_the_statute_pact = yes
 		add_to_variable = { global.hcat_autonomy = -15 tooltip = hcat_autonomy_change_tt }
 		hcat_clamp_autonomy = yes
 		add_war_support = 0.02
@@ -202,6 +203,7 @@ shared_focus = {
 	}
 
 	completion_reward = {
+		hcat_break_the_statute_pact = yes
 		add_to_variable = { global.hcat_autonomy = -30 tooltip = hcat_autonomy_change_tt }
 		hcat_clamp_autonomy = yes
 		CAT = { add_stability = -0.10 }

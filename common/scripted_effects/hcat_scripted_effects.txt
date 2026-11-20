@@ -12,18 +12,64 @@ hcat_init = {
 		limit = { NOT = { has_global_flag = hcat_initialised } }
 		set_global_flag = hcat_initialised
 		set_variable = { global.hcat_autonomy = 50 }
+		set_variable = { global.hcat_autonomy_floor = 0 }
 	}
 }
 
 # HoI4 scripted effects take no parameters, so change the track with:
 #   add_to_variable = { global.hcat_autonomy = <n> tooltip = hcat_autonomy_change_tt }
 #   hcat_clamp_autonomy = yes
+# Also enforces global.hcat_autonomy_floor, set by the Catalan status quo path.
 hcat_clamp_autonomy = {
 	hidden_effect = {
 		clamp_variable = {
 			var = global.hcat_autonomy
 			min = 0
 			max = 100
+		}
+		if = {
+			limit = { check_variable = { global.hcat_autonomy < global.hcat_autonomy_floor } }
+			set_variable = { global.hcat_autonomy = global.hcat_autonomy_floor }
+		}
+	}
+}
+
+### Autonomy floor: the Statute guaranteed by the status quo path ###
+
+hcat_raise_autonomy_floor_to_30 = {
+	custom_effect_tooltip = hcat_autonomy_floor_30_tt
+	hidden_effect = {
+		if = {
+			limit = { check_variable = { global.hcat_autonomy_floor < 30 } }
+			set_variable = { global.hcat_autonomy_floor = 30 }
+		}
+	}
+	hcat_clamp_autonomy = yes
+}
+
+hcat_raise_autonomy_floor_to_40 = {
+	custom_effect_tooltip = hcat_autonomy_floor_40_tt
+	hidden_effect = {
+		if = {
+			limit = { check_variable = { global.hcat_autonomy_floor < 40 } }
+			set_variable = { global.hcat_autonomy_floor = 40 }
+		}
+	}
+	hcat_clamp_autonomy = yes
+}
+
+# Country scope: Spain. Spanish recentralisation tears up the Statute guarantee.
+hcat_break_the_statute_pact = {
+	if = {
+		limit = { check_variable = { global.hcat_autonomy_floor > 0 } }
+		custom_effect_tooltip = hcat_break_the_statute_pact_tt
+		hidden_effect = {
+			set_variable = { global.hcat_autonomy_floor = 0 }
+			set_global_flag = hcat_statute_pact_broken
+		}
+		CAT = { add_stability = -0.05 }
+		hidden_effect = {
+			CAT = { country_event = { id = hcat_catalonia.3 } }
 		}
 	}
 }
@@ -32,6 +78,41 @@ hcat_clamp_autonomy = {
 # or hcat_outcome_independence. Then call hcat_settle_catalan_question = yes.
 hcat_settle_catalan_question = {
 	set_global_flag = hcat_catalan_question_settled
+}
+
+### Raising autonomy from the Catalan side ###
+
+# Country scope: Catalonia. Runs monthly: a weak or divided Spain loses its grip.
+hcat_spanish_weakness_drift = {
+	if = {
+		limit = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+			hcat_catalan_question_settled = no
+		}
+		if = {
+			limit = { OVERLORD = { has_civil_war = yes } }
+			add_to_variable = { global.hcat_autonomy = 2 }
+		}
+		if = {
+			limit = { OVERLORD = { has_stability < 0.3 } }
+			add_to_variable = { global.hcat_autonomy = 1 }
+		}
+		hcat_clamp_autonomy = yes
+	}
+}
+
+# Country scope: Catalonia. Proclaims the Catalan State; Spain decides what happens.
+hcat_proclaim_the_catalan_state = {
+	set_global_flag = hcat_catalan_state_proclaimed
+	custom_effect_tooltip = hcat_proclaim_the_catalan_state_tt
+	OVERLORD = { country_event = { id = hcat_spain.1 } }
+}
+
+# Country scope: Catalonia, after it breaks free (either way).
+hcat_catalonia_breaks_free = {
+	set_variable = { global.hcat_autonomy = 100 }
+	set_variable = { global.hcat_autonomy_floor = 0 }
 }
 
 # Country scope: Catalonia.

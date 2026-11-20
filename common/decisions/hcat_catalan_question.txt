@@ -2,6 +2,41 @@
 # Spanish-side (integration) and Catalan-side decisions both live in this category.
 
 hcat_catalan_question = {
+	# Catalan side: press Madrid for more self-government.
+	hcat_negotiate_competences = {
+		icon = generic_speech
+		allowed = { original_tag = CAT }
+		visible = { hcat_catalonia_can_press_for_autonomy = yes }
+		available = { hcat_catalonia_can_press_for_autonomy = yes }
+		cost = 50
+		fire_only_once = no
+		days_re_enable = 90
+		complete_effect = {
+			add_to_variable = { global.hcat_autonomy = 5 tooltip = hcat_autonomy_change_tt }
+			hcat_clamp_autonomy = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	hcat_mobilise_civil_society = {
+		icon = generic_civil_support
+		allowed = { original_tag = CAT }
+		visible = {
+			hcat_catalonia_can_press_for_autonomy = yes
+			has_completed_focus = CAT_mobilise_civil_society
+		}
+		available = { hcat_catalonia_can_press_for_autonomy = yes }
+		cost = 75
+		fire_only_once = no
+		days_re_enable = 120
+		complete_effect = {
+			add_to_variable = { global.hcat_autonomy = 8 tooltip = hcat_autonomy_change_tt }
+			hcat_clamp_autonomy = yes
+			OVERLORD = { add_stability = -0.01 }
+		}
+		ai_will_do = { base = 1 }
+	}
+
 	# Debug-only helpers to test the autonomy track. Hidden outside debug mode.
 	hcat_debug_raise_autonomy = {
 		icon = generic_political_discourse

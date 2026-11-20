@@ -68,11 +68,36 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
   population in state 165. `CAT` keeps its core, so the question can return.
 
 ### Catalan side
-- **Status quo**: Catalonia stays an autonomous part of Spain.
-- **Independence**, then one of:
-  - **Mediterranean Democracy**: a liberal republic tied to the Western democracies.
-  - **Restore the Crown of Aragó**: claim the lands of the old Crown (Aragon, Valencia, Balearics).
-  - **Home of Anarchy**: CNT-FAI revolutionary Catalonia.
+
+```
+                   The Catalan Question (+5)
+                  /                          \
+  Road to Independence (+10)            Within Spain: floor 30
+               |                              |
+  Mobilise Civil Society (+10)          The Statute Defended: floor 40
+               |                              |
+  Proclaim the Catalan State (≥ 80)     Industry of the Republic
+     /         |          \
+ Mediterranean  Crown of   Home of        (ideological content: TODO)
+ Democracy      Aragó      Anarchy
+```
+
+**Raising autonomy**: focuses; two repeatable decisions in "The Catalan Question"
+(Negotiate Competences, 50 PP, +5 every 90 days; Mobilise Civil Society, 75 PP, +8 every
+120 days, unlocked by its focus); and Spanish weakness, +2 a month while Spain is in a civil
+war and +1 while its stability is below 30% (`on_monthly_CAT`).
+
+**Breakaway**: Proclaim the Catalan State needs autonomy ≥ 80 and fires `hcat_spain.1` to
+Spain. *Let Catalonia go* frees it peacefully and settles the question as independence.
+*Crush the separatists* frees it and Spain declares an annexation war
+(`hcat_war_of_catalan_independence`). The AI mostly refuses unless it is in a civil war or
+below 30% stability. The three ideological focuses need Catalonia to be independent.
+
+**Status quo**: Within Spain and The Statute Defended set an autonomy floor
+(`global.hcat_autonomy_floor`, enforced by `hcat_clamp_autonomy`) of 30, then 40. Spain's
+integration needs autonomy ≤ 25, so it must first break the pact: Recentralise the Republic
+and Abolish the Statute call `hcat_break_the_statute_pact`, which clears the floor, costs
+Catalonia stability and fires `hcat_catalonia.3`.
 
 ## Conventions
 
@@ -98,6 +123,9 @@ These replace vanilla files of the same name. Re-check them whenever HoI4 update
 - The two Spanish divisions and the fleet based in Barcelona (province 9764) load without errors.
 - The Civil War, with and without La Résistance, starting as either side: Catalonia ends up
   on the Republican side and at war with the Nationalists.
+- Catalan side: the decisions raise autonomy and go on cooldown, the monthly drift applies
+  during the Civil War, Proclaim the Catalan State fires Spain's event, and both answers
+  free Catalonia (the refusal at war). The status quo floor holds until Spain recentralises.
 - 1939 start: no Catalonia, state 165 is Spanish.
 - Spanish branch (LaR): it appears right of the vanilla tree without overlapping, the
   Republican and Nationalist halves unlock for the right side, and Integrate Catalonia annexes

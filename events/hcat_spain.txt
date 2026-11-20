@@ -1,0 +1,48 @@
+# HoI IV - Catalunya: events fired to Spain.
+add_namespace = hcat_spain
+
+# Catalonia proclaims the Catalan State. ROOT is Spain, FROM is Catalonia.
+country_event = {
+	id = hcat_spain.1
+	title = hcat_spain.1.t
+	desc = hcat_spain.1.desc
+	picture = GFX_report_event_gathering_protest
+	is_triggered_only = yes
+
+	# Let Catalonia go.
+	option = {
+		name = hcat_spain.1.a
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 5
+				has_civil_war = yes
+			}
+			modifier = {
+				factor = 3
+				has_stability < 0.3
+			}
+		}
+		end_puppet = FROM
+		add_stability = -0.05
+		FROM = { hcat_catalonia_breaks_free = yes }
+		set_global_flag = hcat_outcome_independence
+		hcat_settle_catalan_question = yes
+		FROM = { country_event = { id = hcat_catalonia.1 } }
+	}
+
+	# Crush the separatists.
+	option = {
+		name = hcat_spain.1.b
+		ai_chance = { base = 5 }
+		end_puppet = FROM
+		FROM = { hcat_catalonia_breaks_free = yes }
+		set_global_flag = hcat_war_of_catalan_independence
+		add_war_support = 0.05
+		declare_war_on = {
+			target = FROM
+			type = annex_everything
+		}
+		FROM = { country_event = { id = hcat_catalonia.2 } }
+	}
+}

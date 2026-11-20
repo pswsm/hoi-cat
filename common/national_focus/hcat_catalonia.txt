@@ -1,12 +1,16 @@
-# HoI IV - Catalunya: Catalan focus tree (skeleton).
+# HoI IV - Catalunya: Catalan focus tree.
 # Icons are vanilla placeholders until the mod has its own art.
 #
-#                     CAT_the_catalan_question
-#                    /                        \
-#     CAT_the_road_to_independence      CAT_within_spain (status quo)
-#        /            |            \
-#  mediterranean   crown of      home of
-#   democracy       aragó        anarchy
+#                          CAT_the_catalan_question
+#                         /                        \
+#        CAT_the_road_to_independence          CAT_within_spain (status quo)
+#                    |                               |
+#        CAT_mobilise_civil_society            CAT_the_statute_defended
+#                    |                               |
+#        CAT_proclaim_the_catalan_state        CAT_industry_of_the_republic
+#           /        |           \
+#  mediterranean   crown of     home of
+#   democracy       aragó       anarchy
 
 focus_tree = {
 	id = hcat_catalan_focus
@@ -37,6 +41,7 @@ focus_tree = {
 			add_to_variable = { global.hcat_autonomy = 5 tooltip = hcat_autonomy_change_tt }
 			hcat_clamp_autonomy = yes
 		}
+		ai_will_do = { base = 10 }
 	}
 
 	### Independence ###
@@ -55,54 +60,100 @@ focus_tree = {
 			add_to_variable = { global.hcat_autonomy = 10 tooltip = hcat_autonomy_change_tt }
 			hcat_clamp_autonomy = yes
 		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
-		id = CAT_mediterranean_democracy
-		icon = GFX_goal_support_democracy
+		id = CAT_mobilise_civil_society
+		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = CAT_the_road_to_independence }
-		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
-		mutually_exclusive = { focus = CAT_home_of_anarchy }
-		relative_position_id = CAT_the_road_to_independence
-		x = -2
-		y = 1
-		cost = 10
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		completion_reward = {
-			set_country_flag = hcat_path_mediterranean_democracy
-		}
-	}
-
-	focus = {
-		id = CAT_restore_the_crown_of_aragon
-		icon = GFX_goal_generic_major_alliance
-		prerequisite = { focus = CAT_the_road_to_independence }
-		mutually_exclusive = { focus = CAT_mediterranean_democracy }
-		mutually_exclusive = { focus = CAT_home_of_anarchy }
 		relative_position_id = CAT_the_road_to_independence
 		x = 0
 		y = 1
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
+			add_to_variable = { global.hcat_autonomy = 10 tooltip = hcat_autonomy_change_tt }
+			hcat_clamp_autonomy = yes
+			custom_effect_tooltip = hcat_unlocks_mobilise_decision_tt
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = CAT_proclaim_the_catalan_state
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = CAT_mobilise_civil_society }
+		relative_position_id = CAT_mobilise_civil_society
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+			hcat_autonomy_high_enough_to_proclaim = yes
+		}
+		completion_reward = {
+			hcat_proclaim_the_catalan_state = yes
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	# The three paths of an independent Catalonia. Their content comes later.
+
+	focus = {
+		id = CAT_mediterranean_democracy
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = CAT_proclaim_the_catalan_state }
+		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
+		mutually_exclusive = { focus = CAT_home_of_anarchy }
+		relative_position_id = CAT_proclaim_the_catalan_state
+		x = -2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = { is_subject = no }
+		completion_reward = {
+			set_country_flag = hcat_path_mediterranean_democracy
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = CAT_restore_the_crown_of_aragon
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = CAT_proclaim_the_catalan_state }
+		mutually_exclusive = { focus = CAT_mediterranean_democracy }
+		mutually_exclusive = { focus = CAT_home_of_anarchy }
+		relative_position_id = CAT_proclaim_the_catalan_state
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = { is_subject = no }
+		completion_reward = {
 			set_country_flag = hcat_path_crown_of_aragon
 		}
+		ai_will_do = { base = 1 }
 	}
 
 	focus = {
 		id = CAT_home_of_anarchy
 		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = CAT_the_road_to_independence }
+		prerequisite = { focus = CAT_proclaim_the_catalan_state }
 		mutually_exclusive = { focus = CAT_mediterranean_democracy }
 		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
-		relative_position_id = CAT_the_road_to_independence
+		relative_position_id = CAT_proclaim_the_catalan_state
 		x = 2
 		y = 1
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = { is_subject = no }
 		completion_reward = {
 			set_country_flag = hcat_path_home_of_anarchy
 		}
+		ai_will_do = { base = 1 }
 	}
 
 	### Status quo ###
@@ -116,9 +167,58 @@ focus_tree = {
 		x = 3
 		y = 1
 		cost = 10
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+		}
 		completion_reward = {
 			set_country_flag = hcat_path_status_quo
+			add_stability = 0.05
+			hcat_raise_autonomy_floor_to_30 = yes
 		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_statute_defended
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = CAT_within_spain }
+		relative_position_id = CAT_within_spain
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		available = {
+			is_subject = yes
+			NOT = { has_global_flag = hcat_statute_pact_broken }
+		}
+		completion_reward = {
+			add_stability = 0.03
+			hcat_raise_autonomy_floor_to_40 = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_industry_of_the_republic
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = CAT_the_statute_defended }
+		relative_position_id = CAT_the_statute_defended
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = { base = 3 }
 	}
 }
