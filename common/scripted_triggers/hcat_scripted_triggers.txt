@@ -39,3 +39,22 @@ hcat_is_republican_spain = {
 		has_government = communism
 	}
 }
+
+# Country scope: Spain. Catalonia exists and is our subject.
+hcat_catalonia_is_our_subject = {
+	custom_trigger_tooltip = {
+		tooltip = hcat_catalonia_is_our_subject_tt
+		CAT = {
+			exists = yes
+			is_subject_of = ROOT
+		}
+	}
+}
+
+# Any scope. Catalan autonomy is low enough for Spain to integrate Catalonia.
+hcat_autonomy_low_enough_to_integrate = {
+	custom_trigger_tooltip = {
+		tooltip = hcat_autonomy_low_enough_to_integrate_tt
+		check_variable = { global.hcat_autonomy < 26 }
+	}
+}

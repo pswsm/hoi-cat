@@ -76,3 +76,75 @@ hcat_catalonia_follow_the_republic = {
 		}
 	}
 }
+
+# Country scope: Spain. Annexes Catalonia and starts Catalan discontent.
+# Discontent starts at 30 + 2x the remaining autonomy (30-80) and fades by 1 a month.
+hcat_integrate_catalonia = {
+	set_variable = { global.hcat_discontent = global.hcat_autonomy }
+	multiply_variable = { global.hcat_discontent = 2 }
+	add_to_variable = { global.hcat_discontent = 30 }
+	set_variable = { global.hcat_autonomy = 0 }
+
+	annex_country = {
+		target = CAT
+		transfer_troops = yes
+	}
+
+	hcat_update_catalan_discontent = yes
+	add_dynamic_modifier = { modifier = hcat_catalan_discontent_country }
+	165 = { add_dynamic_modifier = { modifier = hcat_catalan_discontent_state } }
+
+	set_global_flag = hcat_outcome_integration
+	hcat_settle_catalan_question = yes
+}
+
+# Country scope: the country holding hcat_catalan_discontent_country.
+# Recomputes the modifier values from global.hcat_discontent.
+hcat_update_catalan_discontent = {
+	set_variable = { hcat_discontent_stability = global.hcat_discontent }
+	multiply_variable = { hcat_discontent_stability = -0.001 }
+	165 = {
+		set_variable = { hcat_discontent_factories = global.hcat_discontent }
+		multiply_variable = { hcat_discontent_factories = -0.004 }
+		set_variable = { hcat_discontent_recruitable = global.hcat_discontent }
+		multiply_variable = { hcat_discontent_recruitable = -0.004 }
+	}
+}
+
+# Country scope: the country holding hcat_catalan_discontent_country. Runs monthly.
+hcat_fade_catalan_discontent = {
+	subtract_from_variable = { global.hcat_discontent = 1 }
+	if = {
+		limit = { check_variable = { global.hcat_discontent < 1 } }
+		set_variable = { global.hcat_discontent = 0 }
+		remove_dynamic_modifier = { modifier = hcat_catalan_discontent_country }
+		165 = { remove_dynamic_modifier = { modifier = hcat_catalan_discontent_state } }
+	}
+	else = {
+		hcat_update_catalan_discontent = yes
+	}
+}
+
+# Country scope: ROOT is the civil war winner, FROM the loser about to be annexed.
+# A Spanish winner takes over Catalonia from the losing side instead of it walking
+# free. Nationalists can then abolish the Statute through their focus branch.
+hcat_catalonia_after_the_civil_war = {
+	if = {
+		limit = {
+			hcat_is_spain = yes
+			CAT = {
+				exists = yes
+				is_subject_of = FROM
+			}
+		}
+		FROM = { end_puppet = CAT }
+		set_autonomy = {
+			target = CAT
+			autonomous_state = hcat_autonomy_autonomous_community
+		}
+		if = {
+			limit = { hcat_is_republican_spain = no }
+			set_global_flag = hcat_catalonia_lost_the_civil_war
+		}
+	}
+}

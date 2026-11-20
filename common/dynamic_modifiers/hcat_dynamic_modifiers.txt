@@ -1,0 +1,16 @@
+# HoI IV - Catalunya: dynamic modifiers. Values are variables set by
+# hcat_update_catalan_discontent from global.hcat_discontent.
+
+# On the country that integrated Catalonia; only applies while it holds the state.
+hcat_catalan_discontent_country = {
+	icon = GFX_modifiers_generic_resistance
+	enable = { owns_state = 165 }
+	stability_factor = hcat_discontent_stability
+}
+
+# On state 165, whoever owns it.
+hcat_catalan_discontent_state = {
+	icon = GFX_modifiers_generic_resistance
+	local_factories = hcat_discontent_factories
+	recruitable_population_factor = hcat_discontent_recruitable
+}

@@ -1,0 +1,263 @@
+# HoI IV - Catalunya: Spain's branch of the Catalan question.
+# Hooked into the La Resistance tree (spanish_focus) with one shared_focus line
+# in the spain.txt override. Placed right of the vanilla tree (vanilla uses x <= 64).
+# Icons are vanilla placeholders.
+#
+#                      SPR_hcat_the_catalan_question
+#                     /                             \
+#   generalitat_and_the_republic                 against_separatism
+#      /                    \                            |
+#  honour_the_statute   recentralise_the_republic   abolish_the_statute
+#      |                     |                           |
+#  partners_in_the_war   restore_public_order          one_spain
+#                             \                         /
+#                              integrate_catalonia
+
+shared_focus = {
+	id = SPR_hcat_the_catalan_question
+	icon = GFX_goal_generic_political_pressure
+	x = 69
+	y = 0
+	cost = 5
+	search_filters = { FOCUS_FILTER_POLITICAL }
+
+	available = {
+		hcat_catalonia_is_our_subject = yes
+	}
+
+	completion_reward = {
+		add_political_power = 50
+	}
+
+	ai_will_do = { base = 5 }
+}
+
+### Republic ###
+
+shared_focus = {
+	id = SPR_hcat_the_generalitat_and_the_republic
+	icon = GFX_goal_support_democracy
+	prerequisite = { focus = SPR_hcat_the_catalan_question }
+	relative_position_id = SPR_hcat_the_catalan_question
+	x = -2
+	y = 1
+	cost = 5
+	search_filters = { FOCUS_FILTER_POLITICAL }
+
+	available = {
+		hcat_is_republican_spain = yes
+		hcat_catalonia_is_our_subject = yes
+	}
+
+	completion_reward = {
+		add_stability = 0.02
+	}
+
+	ai_will_do = { base = 3 }
+}
+
+shared_focus = {
+	id = SPR_hcat_honour_the_statute
+	icon = GFX_goal_generic_alliance
+	prerequisite = { focus = SPR_hcat_the_generalitat_and_the_republic }
+	mutually_exclusive = { focus = SPR_hcat_recentralise_the_republic }
+	relative_position_id = SPR_hcat_the_generalitat_and_the_republic
+	x = -1
+	y = 1
+	cost = 10
+	search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+
+	available = {
+		hcat_is_republican_spain = yes
+		hcat_catalonia_is_our_subject = yes
+	}
+
+	completion_reward = {
+		add_to_variable = { global.hcat_autonomy = 10 tooltip = hcat_autonomy_change_tt }
+		hcat_clamp_autonomy = yes
+		add_stability = 0.03
+		set_country_flag = hcat_spain_honours_the_statute
+	}
+
+	ai_will_do = { base = 1 }
+}
+
+shared_focus = {
+	id = SPR_hcat_partners_in_the_war_effort
+	icon = GFX_goal_generic_small_arms
+	prerequisite = { focus = SPR_hcat_honour_the_statute }
+	relative_position_id = SPR_hcat_honour_the_statute
+	x = 0
+	y = 1
+	cost = 10
+	search_filters = { FOCUS_FILTER_INDUSTRY }
+
+	available = {
+		hcat_catalonia_is_our_subject = yes
+	}
+
+	completion_reward = {
+		add_to_variable = { global.hcat_autonomy = 5 tooltip = hcat_autonomy_change_tt }
+		hcat_clamp_autonomy = yes
+		165 = {
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+
+	ai_will_do = { base = 1 }
+}
+
+shared_focus = {
+	id = SPR_hcat_recentralise_the_republic
+	icon = GFX_goal_generic_national_unity
+	prerequisite = { focus = SPR_hcat_the_generalitat_and_the_republic }
+	mutually_exclusive = { focus = SPR_hcat_honour_the_statute }
+	relative_position_id = SPR_hcat_the_generalitat_and_the_republic
+	x = 1
+	y = 1
+	cost = 10
+	search_filters = { FOCUS_FILTER_POLITICAL }
+
+	available = {
+		hcat_is_republican_spain = yes
+		hcat_catalonia_is_our_subject = yes
+	}
+
+	completion_reward = {
+		add_to_variable = { global.hcat_autonomy = -15 tooltip = hcat_autonomy_change_tt }
+		hcat_clamp_autonomy = yes
+		add_war_support = 0.02
+	}
+
+	ai_will_do = { base = 2 }
+}
+
+shared_focus = {
+	id = SPR_hcat_restore_public_order
+	icon = GFX_goal_generic_political_pressure
+	prerequisite = { focus = SPR_hcat_recentralise_the_republic }
+	relative_position_id = SPR_hcat_recentralise_the_republic
+	x = 0
+	y = 1
+	cost = 10
+	search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+
+	available = {
+		hcat_catalonia_is_our_subject = yes
+	}
+
+	completion_reward = {
+		add_to_variable = { global.hcat_autonomy = -15 tooltip = hcat_autonomy_change_tt }
+		hcat_clamp_autonomy = yes
+		add_stability = 0.02
+		CAT = { add_stability = -0.05 }
+	}
+
+	ai_will_do = { base = 2 }
+}
+
+### Nationalists ###
+
+shared_focus = {
+	id = SPR_hcat_against_separatism
+	icon = GFX_goal_generic_propaganda
+	prerequisite = { focus = SPR_hcat_the_catalan_question }
+	relative_position_id = SPR_hcat_the_catalan_question
+	x = 2
+	y = 1
+	cost = 5
+	search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+
+	# Bypassed root: Nationalist Spain only gets Catalonia as a subject after winning
+	# the civil war, so this one does not require it.
+	available = {
+		hcat_is_republican_spain = no
+	}
+
+	completion_reward = {
+		add_war_support = 0.03
+	}
+
+	ai_will_do = { base = 3 }
+}
+
+shared_focus = {
+	id = SPR_hcat_abolish_the_statute
+	icon = GFX_goal_generic_political_pressure
+	prerequisite = { focus = SPR_hcat_against_separatism }
+	relative_position_id = SPR_hcat_against_separatism
+	x = 0
+	y = 1
+	cost = 10
+	search_filters = { FOCUS_FILTER_POLITICAL }
+
+	available = {
+		hcat_is_republican_spain = no
+		hcat_catalonia_is_our_subject = yes
+		has_civil_war = no
+	}
+
+	completion_reward = {
+		add_to_variable = { global.hcat_autonomy = -30 tooltip = hcat_autonomy_change_tt }
+		hcat_clamp_autonomy = yes
+		CAT = { add_stability = -0.10 }
+	}
+
+	ai_will_do = { base = 3 }
+}
+
+shared_focus = {
+	id = SPR_hcat_one_spain
+	icon = GFX_goal_generic_national_unity
+	prerequisite = { focus = SPR_hcat_abolish_the_statute }
+	relative_position_id = SPR_hcat_abolish_the_statute
+	x = 0
+	y = 1
+	cost = 10
+	search_filters = { FOCUS_FILTER_POLITICAL }
+
+	available = {
+		hcat_catalonia_is_our_subject = yes
+	}
+
+	completion_reward = {
+		add_to_variable = { global.hcat_autonomy = -20 tooltip = hcat_autonomy_change_tt }
+		hcat_clamp_autonomy = yes
+		add_stability = 0.02
+	}
+
+	ai_will_do = { base = 3 }
+}
+
+### Shared end point ###
+
+shared_focus = {
+	id = SPR_hcat_integrate_catalonia
+	icon = GFX_goal_generic_major_alliance
+	# Either chain unlocks it.
+	prerequisite = {
+		focus = SPR_hcat_restore_public_order
+		focus = SPR_hcat_one_spain
+	}
+	relative_position_id = SPR_hcat_the_catalan_question
+	x = 1
+	y = 4
+	cost = 10
+	search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+
+	available = {
+		hcat_catalonia_is_our_subject = yes
+		hcat_autonomy_low_enough_to_integrate = yes
+		hcat_catalan_question_settled = no
+	}
+
+	completion_reward = {
+		hcat_integrate_catalonia = yes
+	}
+
+	ai_will_do = { base = 5 }
+}

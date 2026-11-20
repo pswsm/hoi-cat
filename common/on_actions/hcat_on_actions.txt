@@ -14,4 +14,20 @@ on_actions = {
 			hcat_catalonia_follow_the_republic = yes
 		}
 	}
+
+	# ROOT is the winner, FROM the loser, which still exists at this point.
+	on_civil_war_end_before_annexation = {
+		effect = {
+			hcat_catalonia_after_the_civil_war = yes
+		}
+	}
+
+	on_monthly = {
+		effect = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = hcat_catalan_discontent_country } }
+				hcat_fade_catalan_discontent = yes
+			}
+		}
+	}
 }

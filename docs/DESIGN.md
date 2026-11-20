@@ -41,7 +41,31 @@ the Republican side and Catalonia joins the war against its former overlord.
 ## Paths
 
 ### Spanish side: integration
-Spain works to reduce autonomy and fold Catalonia into the state.
+Spain works to reduce autonomy and fold Catalonia into the state. Only with La Résistance:
+the branch is a set of shared focuses (`common/national_focus/hcat_spain_shared.txt`) hooked
+into `spanish_focus`, to the right of the vanilla tree (x 66–71).
+
+```
+                 The Catalan Question
+               /                      \
+  The Generalitat and the Republic    Against Separatism (Nationalists)
+       /                \                    |
+ Honour the Statute   Recentralise      Abolish the Statute (-30)
+   (+10)                (-15)                 |
+       |                  |               One Spain (-20)
+ Partners in the      Restore Public Order (-15)
+ War Effort (+5)          \               /
+                        Integrate Catalonia
+```
+
+- The Republican path forks: honouring the Statute (no integration) or recentralising after
+  the May Days, as in 1937.
+- The Nationalists only get Catalonia as a subject by winning the civil war: in
+  `on_civil_war_end_before_annexation` the winner takes Catalonia over from the loser.
+- **Integrate Catalonia** needs autonomy ≤ 25. It annexes `CAT` and starts *Catalan
+  Discontent*: `global.hcat_discontent` = 30 + 2 × remaining autonomy (30–80), fading by 1 a
+  month. At 80 it gives −8% stability to the owner and −32% factory output and recruitable
+  population in state 165. `CAT` keeps its core, so the question can return.
 
 ### Catalan side
 - **Status quo**: Catalonia stays an autonomous part of Spain.
@@ -66,6 +90,7 @@ These replace vanilla files of the same name. Re-check them whenever HoI4 update
 |------|--------|
 | `history/states/165-Catalonia.txt` | owner `CAT` in 1936, `SPR` from 1939 |
 | `history/countries/CAT - Catalonia.txt` | `SPR` makes `CAT` an Autonomous Community (pre-1938 starts) |
+| `common/national_focus/spain.txt` | one `shared_focus = SPR_hcat_the_catalan_question` line in `spanish_focus` |
 
 ## In-game test checklist
 
@@ -74,6 +99,10 @@ These replace vanilla files of the same name. Re-check them whenever HoI4 update
 - The Civil War, with and without La Résistance, starting as either side: Catalonia ends up
   on the Republican side and at war with the Nationalists.
 - 1939 start: no Catalonia, state 165 is Spanish.
+- Spanish branch (LaR): it appears right of the vanilla tree without overlapping, the
+  Republican and Nationalist halves unlock for the right side, and Integrate Catalonia annexes
+  Catalonia and applies Catalan Discontent, which fades monthly.
+- A Nationalist victory leaves Catalonia as a Nationalist subject, not independent.
 - `error.log` has no entries mentioning `hcat_` or `CAT`.
 
 ## Vanilla reference
