@@ -1,0 +1,75 @@
+# HoI IV - Catalunya: scripted effects
+#
+# Core state of the mod: global variable `hcat_autonomy` (0-100).
+#   0   = Catalonia fully integrated into a centralised Spain
+#   50  = the 1932 Statute of Autonomy (game start)
+#   100 = de facto independence
+# Spanish-side content pushes it down, Catalan-side content pushes it up.
+
+hcat_init = {
+	if = {
+		limit = { NOT = { has_global_flag = hcat_initialised } }
+		set_global_flag = hcat_initialised
+		set_variable = { global.hcat_autonomy = 50 }
+	}
+}
+
+# Usage: hcat_change_autonomy = { VALUE = 10 }  (negative values allowed)
+hcat_change_autonomy = {
+	add_to_variable = { global.hcat_autonomy = $VALUE$ }
+	clamp_variable = {
+		var = global.hcat_autonomy
+		min = 0
+		max = 100
+	}
+}
+
+# Usage: hcat_settle_catalan_question = { OUTCOME = independence }
+# OUTCOME is one of: integration, status_quo, independence
+hcat_settle_catalan_question = {
+	set_global_flag = hcat_catalan_question_settled
+	set_global_flag = hcat_outcome_$OUTCOME$
+}
+
+# Country scope: Catalonia.
+# The Generalitat stays loyal to the Republic. If Spain splits in a civil war and
+# Catalonia's overlord ends up on the non-Republican side, its subject relationship
+# moves to the Republican side, and Catalonia joins the war against its former overlord.
+hcat_catalonia_follow_the_republic = {
+	if = {
+		limit = {
+			is_subject = yes
+			OVERLORD = {
+				hcat_is_spain = yes
+				hcat_is_republican_spain = no
+				has_civil_war = yes
+			}
+		}
+		OVERLORD = { save_event_target_as = hcat_former_overlord }
+		random_country = {
+			limit = {
+				hcat_is_republican_spain = yes
+				has_war_with = event_target:hcat_former_overlord
+			}
+			save_event_target_as = hcat_republican_spain
+		}
+		if = {
+			limit = { has_event_target = hcat_republican_spain }
+			event_target:hcat_former_overlord = { end_puppet = ROOT }
+			event_target:hcat_republican_spain = {
+				set_autonomy = {
+					target = ROOT
+					autonomous_state = hcat_autonomy_autonomous_community
+					end_wars = no
+					end_civil_wars = no
+				}
+			}
+			add_to_war = {
+				targeted_alliance = event_target:hcat_republican_spain
+				enemy = event_target:hcat_former_overlord
+				hostility_reason = asked_to_join
+			}
+			set_global_flag = hcat_catalonia_sided_with_the_republic
+		}
+	}
+}

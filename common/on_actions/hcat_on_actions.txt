@@ -1,0 +1,16 @@
+# HoI IV - Catalunya: on_actions
+on_actions = {
+	on_startup = {
+		effect = {
+			hcat_init = yes
+		}
+	}
+
+	# There is no on_action for a civil war starting, so Catalonia checks daily.
+	# The check is a few cheap triggers on a single country.
+	on_daily_CAT = {
+		effect = {
+			hcat_catalonia_follow_the_republic = yes
+		}
+	}
+}

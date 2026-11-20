@@ -1,0 +1,41 @@
+# HoI IV - Catalunya: scripted triggers
+# All mod-owned identifiers use the `hcat_` prefix to avoid clashing with vanilla or other mods.
+
+# Country scope. True for the Spanish state in any of its forms (Republic, Nationalists,
+# dynamic civil-war tags), since they all keep SPR as their original tag.
+hcat_is_spain = {
+	original_tag = SPR
+}
+
+# Country scope. True for Catalonia.
+hcat_is_catalonia = {
+	original_tag = CAT
+}
+
+# Country scope. Countries that take part in the Catalan question.
+hcat_is_party_to_catalan_question = {
+	OR = {
+		hcat_is_spain = yes
+		hcat_is_catalonia = yes
+	}
+}
+
+# Global scope is fine. The question is settled once any path has been locked in.
+hcat_catalan_question_settled = {
+	has_global_flag = hcat_catalan_question_settled
+}
+
+# Country scope. The Republican side of Spain: not one of the Nationalist or Carlist
+# forms LaR uses, and governed by the left.
+hcat_is_republican_spain = {
+	hcat_is_spain = yes
+	NOT = {
+		has_country_flag = SPR_nationalist_spain_flag
+		has_country_flag = scw_no_lar_nationalists
+		has_country_flag = SPR_carlist_spain_flag
+	}
+	OR = {
+		has_government = democratic
+		has_government = communism
+	}
+}

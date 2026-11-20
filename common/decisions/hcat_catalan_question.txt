@@ -1,0 +1,27 @@
+# HoI IV - Catalunya: decisions for the Catalan question.
+# Spanish-side (integration) and Catalan-side decisions both live in this category.
+
+hcat_catalan_question = {
+	# Debug-only helpers to test the autonomy track. Hidden outside debug mode.
+	hcat_debug_raise_autonomy = {
+		icon = generic_political_discourse
+		visible = { is_debug = yes }
+		cost = 0
+		fire_only_once = no
+		complete_effect = {
+			hcat_change_autonomy = { VALUE = 10 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	hcat_debug_lower_autonomy = {
+		icon = generic_political_discourse
+		visible = { is_debug = yes }
+		cost = 0
+		fire_only_once = no
+		complete_effect = {
+			hcat_change_autonomy = { VALUE = -10 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+}

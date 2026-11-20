@@ -1,0 +1,122 @@
+# HoI IV - Catalunya: Catalan focus tree (skeleton).
+# Icons are vanilla placeholders until the mod has its own art.
+#
+#                     CAT_the_catalan_question
+#                    /                        \
+#     CAT_the_road_to_independence      CAT_within_spain (status quo)
+#        /            |            \
+#  mediterranean   crown of      home of
+#   democracy       aragó        anarchy
+
+focus_tree = {
+	id = hcat_catalan_focus
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			original_tag = CAT
+		}
+	}
+
+	default = no
+	reset_on_civilwar = no
+
+	initial_show_position = {
+		focus = CAT_the_catalan_question
+	}
+
+	focus = {
+		id = CAT_the_catalan_question
+		icon = GFX_goal_generic_political_pressure
+		x = 6
+		y = 0
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			hcat_change_autonomy = { VALUE = 5 }
+		}
+	}
+
+	### Independence ###
+
+	focus = {
+		id = CAT_the_road_to_independence
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = CAT_the_catalan_question }
+		mutually_exclusive = { focus = CAT_within_spain }
+		relative_position_id = CAT_the_catalan_question
+		x = -3
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			hcat_change_autonomy = { VALUE = 10 }
+		}
+	}
+
+	focus = {
+		id = CAT_mediterranean_democracy
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = CAT_the_road_to_independence }
+		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
+		mutually_exclusive = { focus = CAT_home_of_anarchy }
+		relative_position_id = CAT_the_road_to_independence
+		x = -2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			set_country_flag = hcat_path_mediterranean_democracy
+		}
+	}
+
+	focus = {
+		id = CAT_restore_the_crown_of_aragon
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = CAT_the_road_to_independence }
+		mutually_exclusive = { focus = CAT_mediterranean_democracy }
+		mutually_exclusive = { focus = CAT_home_of_anarchy }
+		relative_position_id = CAT_the_road_to_independence
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			set_country_flag = hcat_path_crown_of_aragon
+		}
+	}
+
+	focus = {
+		id = CAT_home_of_anarchy
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = CAT_the_road_to_independence }
+		mutually_exclusive = { focus = CAT_mediterranean_democracy }
+		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
+		relative_position_id = CAT_the_road_to_independence
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			set_country_flag = hcat_path_home_of_anarchy
+		}
+	}
+
+	### Status quo ###
+
+	focus = {
+		id = CAT_within_spain
+		icon = GFX_goal_generic_alliance
+		prerequisite = { focus = CAT_the_catalan_question }
+		mutually_exclusive = { focus = CAT_the_road_to_independence }
+		relative_position_id = CAT_the_catalan_question
+		x = 3
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			set_country_flag = hcat_path_status_quo
+		}
+	}
+}

@@ -1,0 +1,10 @@
+# HoI IV - Catalunya: decision categories
+
+hcat_catalan_question = {
+	icon = generic_political_actions
+	priority = 100
+
+	visible = {
+		hcat_is_party_to_catalan_question = yes
+	}
+}

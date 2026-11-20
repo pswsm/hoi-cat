@@ -1,0 +1,55 @@
+# HoI IV - Catalunya: "Autonomous Community" subject level.
+# Catalonia's status under the 1932 Statute of Autonomy: self-governing,
+# but without its own foreign policy, and bound to Spain's wars.
+# Only Catalonia, under a Spanish overlord, can hold this level.
+
+autonomy_state = {
+	id = hcat_autonomy_autonomous_community
+
+	# Between colony (0.6) and dominion (0.8).
+	min_freedom_level = 0.7
+
+	manpower_influence = 0.5
+
+	rule = {
+		desc = "RULE_DESC_IS_A_SUBJECT"
+
+		can_not_declare_war = yes
+		can_decline_call_to_war = no
+		can_be_spymaster = no
+		contributes_operatives = no
+		can_create_collaboration_government = no
+	}
+
+	modifier = {
+		autonomy_manpower_share = 0.5
+		extra_trade_to_overlord_factor = 0.5
+		overlord_trade_cost_factor = -0.5
+		peace_score_ratio_transferred_to_overlord = 0.1
+		lend_lease_tension_with_overlord = -0.25
+	}
+
+	# Movement along the native autonomy ladder is driven by mod content, not by the AI.
+	ai_subject_wants_higher = {
+		factor = 0.0
+	}
+
+	ai_overlord_wants_lower = {
+		factor = 0.0
+	}
+
+	ai_overlord_wants_garrison = {
+		always = no
+	}
+
+	allowed = {
+		hcat_is_catalonia = yes
+		OVERLORD = { hcat_is_spain = yes }
+	}
+
+	can_take_level = {
+	}
+
+	can_lose_level = {
+	}
+}
