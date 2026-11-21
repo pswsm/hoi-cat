@@ -13,7 +13,9 @@
 #   democracy       aragó       anarchy
 #
 # Mediterranean Democracy has three columns (politics, economy, foreign policy and
-# defence) that meet in CAT_the_beacon_of_the_mediterranean; see docs/DESIGN.md.
+# defence) that meet in CAT_the_beacon_of_the_mediterranean. Restore the Crown of Arago
+# has three (the Crown, the lands of the Crown, the sea) that meet in
+# CAT_the_crown_of_aragon_reborn. See docs/DESIGN.md.
 
 focus_tree = {
 	id = hcat_catalan_focus
@@ -400,8 +402,280 @@ focus_tree = {
 		available = { is_subject = no }
 		completion_reward = {
 			set_country_flag = hcat_path_crown_of_aragon
+			add_popularity = { ideology = neutrality popularity = 0.15 }
+			add_ideas = hcat_a_disputed_crown
 		}
 		ai_will_do = { base = 1 }
+	}
+
+	### Restore the Crown of Arago ###
+	# Three columns (the Crown, the lands of the Crown, the sea) that meet in
+	# The Crown of Arago Reborn. Columns sit at x 7-11, between the other two paths.
+	# Lands of the Crown: 166 Western Aragon, 794 Eastern Aragon, 167 Valencia,
+	# 177 Balearic Islands. Overseas: 22 Roussillon, 114 Sardinia, 115 Sicily, 117 Naples.
+
+	# The Crown
+
+	focus = {
+		id = CAT_the_count_of_barcelona
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = CAT_restore_the_crown_of_aragon }
+		relative_position_id = CAT_restore_the_crown_of_aragon
+		x = -2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		completion_reward = {
+			recruit_character = CAT_juan_de_borbon
+			set_politics = { ruling_party = neutrality elections_allowed = no }
+			add_popularity = { ideology = neutrality popularity = 0.20 }
+			promote_character = { character = CAT_juan_de_borbon ideology = despotism }
+			set_cosmetic_tag = CAT_aragon
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_corts_generals
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = CAT_the_count_of_barcelona }
+		relative_position_id = CAT_the_count_of_barcelona
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			swap_ideas = { remove_idea = hcat_a_disputed_crown add_idea = hcat_the_corts_of_the_crown }
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_usatges_of_barcelona
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = CAT_the_corts_generals }
+		relative_position_id = CAT_the_corts_generals
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		completion_reward = {
+			add_ideas = hcat_the_usatges_of_barcelona
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# The lands of the Crown
+
+	focus = {
+		id = CAT_the_lands_of_the_crown
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = CAT_restore_the_crown_of_aragon }
+		relative_position_id = CAT_restore_the_crown_of_aragon
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			add_state_claim = 166
+			add_state_claim = 794
+			add_state_claim = 167
+			add_state_claim = 177
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_reclaim_aragon
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = CAT_the_lands_of_the_crown }
+		relative_position_id = CAT_the_lands_of_the_crown
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		bypass = {
+			owns_state = 166
+			owns_state = 794
+		}
+		completion_reward = {
+			if = {
+				limit = { 166 = { NOT = { is_controlled_by = ROOT } } }
+				create_wargoal = {
+					type = take_state_focus
+					target = 166.controller
+					generator = { 166 794 }
+				}
+			}
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_reclaim_valencia_and_the_isles
+		icon = GFX_goal_generic_occupy_states_coastal
+		prerequisite = { focus = CAT_reclaim_aragon }
+		relative_position_id = CAT_reclaim_aragon
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		bypass = {
+			owns_state = 167
+			owns_state = 177
+		}
+		completion_reward = {
+			if = {
+				limit = { 167 = { NOT = { is_controlled_by = ROOT } } }
+				create_wargoal = {
+					type = take_state_focus
+					target = 167.controller
+					generator = { 167 177 }
+				}
+			}
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_crown_united
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = CAT_reclaim_valencia_and_the_isles }
+		relative_position_id = CAT_reclaim_valencia_and_the_isles
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
+		available = {
+			owns_state = 165
+			owns_state = 166
+			owns_state = 794
+			owns_state = 167
+			owns_state = 177
+		}
+		completion_reward = {
+			166 = { add_core_of = ROOT }
+			794 = { add_core_of = ROOT }
+			167 = { add_core_of = ROOT }
+			177 = { add_core_of = ROOT }
+			add_stability = 0.05
+		}
+		ai_will_do = { base = 10 }
+	}
+
+	# The sea
+
+	focus = {
+		id = CAT_the_almogavars
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = CAT_restore_the_crown_of_aragon }
+		relative_position_id = CAT_restore_the_crown_of_aragon
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		completion_reward = {
+			army_experience = 15
+			add_ideas = hcat_the_almogavars
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_consulate_of_the_sea
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = CAT_the_almogavars }
+		relative_position_id = CAT_the_almogavars
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			navy_experience = 25
+			add_ideas = hcat_the_consulate_of_the_sea
+			165 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_northern_catalonia
+		icon = GFX_goal_generic_demand_territory
+		prerequisite = { focus = CAT_the_consulate_of_the_sea }
+		relative_position_id = CAT_the_consulate_of_the_sea
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		bypass = { owns_state = 22 }
+		completion_reward = {
+			add_state_claim = 22
+			if = {
+				limit = { 22 = { NOT = { is_controlled_by = ROOT } } }
+				create_wargoal = {
+					type = take_state_focus
+					target = 22.controller
+					generator = { 22 }
+				}
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = CAT_the_mediterranean_kingdoms
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = CAT_northern_catalonia }
+		relative_position_id = CAT_northern_catalonia
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			add_state_claim = 114
+			add_state_claim = 115
+			add_state_claim = 117
+			if = {
+				limit = { 114 = { NOT = { is_controlled_by = ROOT } } }
+				create_wargoal = {
+					type = take_state_focus
+					target = 114.controller
+					generator = { 114 }
+				}
+			}
+		}
+		ai_will_do = { base = 1 }
+	}
+
+	focus = {
+		id = CAT_the_crown_of_aragon_reborn
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = CAT_the_usatges_of_barcelona }
+		prerequisite = { focus = CAT_the_crown_united }
+		prerequisite = { focus = CAT_the_mediterranean_kingdoms }
+		relative_position_id = CAT_restore_the_crown_of_aragon
+		x = 0
+		y = 5
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			swap_ideas = { remove_idea = hcat_the_corts_of_the_crown add_idea = hcat_the_crown_of_aragon_reborn }
+			every_owned_state = {
+				limit = {
+					OR = { state = 22 state = 114 state = 115 state = 117 }
+					is_fully_controlled_by = ROOT
+				}
+				add_core_of = ROOT
+			}
+			if = {
+				limit = { has_government = neutrality }
+				set_cosmetic_tag = CAT_aragon
+			}
+		}
+		ai_will_do = { base = 10 }
 	}
 
 	focus = {

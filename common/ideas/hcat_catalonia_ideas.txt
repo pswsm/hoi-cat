@@ -74,5 +74,70 @@ ideas = {
 				conscription = 0.005
 			}
 		}
+
+		### Restore the Crown of Arago ###
+
+		# Starts the branch; The Corts Generals swaps it for the next one.
+		hcat_a_disputed_crown = {
+			picture = generic_monarchist_uprising
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = -0.10
+				stability_factor = -0.10
+			}
+		}
+
+		# Swapped in by The Corts Generals; The Crown of Arago Reborn replaces it.
+		hcat_the_corts_of_the_crown = {
+			picture = generic_king_handled
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.10
+			}
+		}
+
+		hcat_the_crown_of_aragon_reborn = {
+			picture = generic_victors_of_ww1
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				political_power_gain = 0.15
+				war_support_factor = 0.05
+			}
+		}
+
+		hcat_the_usatges_of_barcelona = {
+			picture = generic_constitutional_guarantees
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				justify_war_goal_time = -0.25
+				war_support_factor = 0.05
+			}
+		}
+
+		hcat_the_almogavars = {
+			picture = generic_mountain_warfare
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.05
+				experience_gain_army_factor = 0.10
+			}
+		}
+
+		hcat_the_consulate_of_the_sea = {
+			picture = generic_sea_focused_navy
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_dockyard = 0.10
+				trade_opinion_factor = 0.20
+			}
+		}
 	}
 }

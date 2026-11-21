@@ -78,7 +78,7 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
                |                              |
   Proclaim the Catalan State (≥ 80)     Industry of the Republic
      /         |          \
- Mediterranean  Crown of   Home of        (Aragó, Anarchy: TODO)
+ Mediterranean  Crown of   Home of        (Anarchy: TODO)
  Democracy      Aragó      Anarchy
 ```
 
@@ -109,6 +109,36 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
   guarantee if France has none); *The Mediterranean Accord* founds a defensive democratic
   faction from `faction_template_defensive_democratic`.
 - The capstone needs all three columns and gives a research slot.
+
+#### Restore the Crown of Aragó
+
+```
+                  Restore the Crown of Aragó (+A Disputed Crown)
+              /                    |                       \
+ The Count of Barcelona    The Lands of the Crown       The Almogàvers
+              |                    |                       |
+ The Corts Generals        Reclaim Aragon               The Consulate of the Sea
+              |                    |                       |
+ The Usatges of Barcelona  Reclaim Valencia and Isles   Northern Catalonia
+              \                    |                       |
+               \           The Crown United             The Mediterranean Kingdoms
+                \                  |                      /
+                       The Crown of Aragon Reborn
+```
+
+- The Crown: *The Count of Barcelona* crowns Juan de Borbón (mod character
+  `CAT_juan_de_borbon`, `despotism`, generic portrait). The government becomes
+  non-aligned without elections, and the country takes vanilla's `CAT_aragon` cosmetic
+  tag ("Crown of Aragon", which has its own non-aligned flag). *A Disputed Crown* becomes
+  *The Corts of the Crown*, and the capstone turns that into *The Crown of Aragon Reborn*.
+  *The Usatges* spirit cuts the time to justify wargoals.
+- The lands of the Crown: claims on 166, 794, 167 and 177. Each Reclaim focus creates a
+  `take_state_focus` wargoal against whoever controls the states, and is bypassed if
+  Catalonia already owns them. *The Crown United* needs all five states and cores them.
+- The sea: an army spirit, then dockyards and a trade/dockyard spirit, then a claim and
+  wargoal on Roussillon (22, France), then claims on Sardinia (114), Sicily (115) and
+  Naples (117), with a wargoal on Sardinia.
+- The capstone also cores the overseas states Catalonia fully controls.
 
 **Raising autonomy**: focuses; two repeatable decisions in "The Catalan Question"
 (Negotiate Competences, 50 PP, +5 every 90 days; Mobilise Civil Society, 75 PP, +8 every
