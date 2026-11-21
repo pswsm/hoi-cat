@@ -242,3 +242,11 @@ hcat_catalonia_after_the_civil_war = {
 		}
 	}
 }
+
+# Country scope: Catalonia, from each option of hcat_catalonia.4 (Who Shall Wear the
+# Crown?), after recruit_character and before promote_character.
+hcat_crown_the_claimant = {
+	set_politics = { ruling_party = neutrality elections_allowed = no }
+	add_popularity = { ideology = neutrality popularity = 0.20 }
+	set_cosmetic_tag = CAT_aragon
+}

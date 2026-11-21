@@ -126,11 +126,21 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
                        The Crown of Aragon Reborn
 ```
 
-- The Crown: *The Count of Barcelona* crowns Juan de Borbón (mod character
-  `CAT_juan_de_borbon`, `despotism`, generic portrait). The government becomes
-  non-aligned without elections, and the country takes vanilla's `CAT_aragon` cosmetic
-  tag ("Crown of Aragon", which has its own non-aligned flag). *A Disputed Crown* becomes
-  *The Corts of the Crown*, and the capstone turns that into *The Crown of Aragon Reborn*.
+- The Crown: *The Count of Barcelona* fires `hcat_catalonia.4`, *Who Shall Wear the Crown?*
+  Every option makes the government non-aligned without elections and takes vanilla's
+  `CAT_aragon` cosmetic tag ("Crown of Aragon", with its own non-aligned flag), then
+  crowns a claimant (`common/characters/hcat_CAT.txt`) with a permanent dynasty spirit:
+
+  | Option | Claimant | Spirit | Other effects |
+  |---|---|---|---|
+  | House of Bourbon | Juan de Borbón | +10% PP, −5% stability | +40 opinion with Spain, both ways |
+  | Refound the House of Barcelona | Ramon Berenguer (fictional) | +10% stability, +5% war support, −10% PP | +5% stability |
+  | Austrian candidate | Otto von Habsburg | +5% PP, +5% army org, −5% stability | +40 opinion from Austria and Hungary, −25 from Germany |
+  | House of Urgell (Caspe, 1412) | Jaume d'Urgell (fictional) | +10% war support, −15% wargoal time, −5% stability | +5% war support |
+
+  Each also sets a `hcat_dynasty_<house>` country flag for later content.
+
+  *A Disputed Crown* becomes *The Corts of the Crown*, and the capstone turns that into *The Crown of Aragon Reborn*.
   *The Usatges* spirit cuts the time to justify wargoals.
 - The lands of the Crown: claims on 166, 794, 167 and 177. Each Reclaim focus creates a
   `take_state_focus` wargoal against whoever controls the states, and is bypassed if

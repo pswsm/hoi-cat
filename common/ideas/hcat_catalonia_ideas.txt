@@ -139,5 +139,50 @@ ideas = {
 				trade_opinion_factor = 0.20
 			}
 		}
+
+		# Dynasty spirits, one per option of hcat_catalonia.4. Permanent.
+
+		hcat_house_of_bourbon = {
+			picture = generic_king_handled
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.10
+				stability_factor = -0.05
+			}
+		}
+
+		hcat_house_of_barcelona = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.05
+				political_power_gain = -0.10
+			}
+		}
+
+		hcat_house_of_habsburg = {
+			picture = generic_army_war_college
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.05
+				army_org_factor = 0.05
+				stability_factor = -0.05
+			}
+		}
+
+		hcat_house_of_urgell = {
+			picture = generic_monarchist_uprising
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.10
+				justify_war_goal_time = -0.15
+				stability_factor = -0.05
+			}
+		}
 	}
 }

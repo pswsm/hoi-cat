@@ -426,11 +426,8 @@ focus_tree = {
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		completion_reward = {
-			recruit_character = CAT_juan_de_borbon
-			set_politics = { ruling_party = neutrality elections_allowed = no }
-			add_popularity = { ideology = neutrality popularity = 0.20 }
-			promote_character = { character = CAT_juan_de_borbon ideology = despotism }
-			set_cosmetic_tag = CAT_aragon
+			custom_effect_tooltip = hcat_choose_a_claimant_tt
+			country_event = { id = hcat_catalonia.4 }
 		}
 		ai_will_do = { base = 5 }
 	}

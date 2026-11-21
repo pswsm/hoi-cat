@@ -1,14 +1,63 @@
 # HoI IV - Catalunya: Catalan characters added by the mod.
-# Portraits are vanilla generic placeholders.
+# The four claimants to the Crown of Arago, offered by hcat_catalonia.4 (from
+# CAT_the_count_of_barcelona). Portraits are placeholders: Otto reuses vanilla's
+# Hungarian portrait, the others are generic.
 
 characters = {
-	# Count of Barcelona, the Bourbon heir; called to the throne by
-	# CAT_the_count_of_barcelona (Restore the Crown of Arago).
+	# House of Bourbon: Juan de Borbon, Count of Barcelona, heir of Alfonso XIII.
 	CAT_juan_de_borbon = {
 		name = CAT_juan_de_borbon
 		portraits = {
 			civilian = {
 				large = GFX_portrait_generic_europe_male_05
+			}
+		}
+		country_leader = {
+			ideology = despotism
+			traits = { }
+			expire = "1977.1.1.1"
+			id = -1
+		}
+	}
+
+	# House of Barcelona refounded: a Catalan noble chosen by the Corts (fictional).
+	CAT_ramon_berenguer = {
+		name = CAT_ramon_berenguer
+		portraits = {
+			civilian = {
+				large = GFX_portrait_generic_europe_male_09
+			}
+		}
+		country_leader = {
+			ideology = moderatism
+			traits = { }
+			expire = "1977.1.1.1"
+			id = -1
+		}
+	}
+
+	# House of Habsburg: Otto von Habsburg, heir of the 1705 Austrian candidate's line.
+	CAT_otto_von_habsburg = {
+		name = CAT_otto_von_habsburg
+		portraits = {
+			civilian = {
+				large = GFX_Portrait_hungary_otto_von_hapsburg
+			}
+		}
+		country_leader = {
+			ideology = despotism
+			traits = { }
+			expire = "1977.1.1.1"
+			id = -1
+		}
+	}
+
+	# House of Urgell: heir of Jaume d'Urgell, passed over at Caspe in 1412 (fictional).
+	CAT_jaume_d_urgell = {
+		name = CAT_jaume_d_urgell
+		portraits = {
+			civilian = {
+				large = GFX_portrait_generic_europe_male_12
 			}
 		}
 		country_leader = {

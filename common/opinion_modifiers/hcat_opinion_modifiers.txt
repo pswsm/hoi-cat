@@ -6,4 +6,18 @@ opinion_modifiers = {
 		value = 25
 		decay = 0.25
 	}
+
+	# hcat_catalonia.4: the claimant chosen for the Crown of Arago.
+	hcat_a_bourbon_in_barcelona = {
+		value = 40
+		decay = 0.25
+	}
+	hcat_a_habsburg_in_barcelona = {
+		value = 40
+		decay = 0.25
+	}
+	hcat_habsburg_restoration = {
+		value = -25
+		decay = 0.25
+	}
 }

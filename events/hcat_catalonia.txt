@@ -41,3 +41,76 @@ country_event = {
 		name = hcat_catalonia.3.a
 	}
 }
+
+# Who Shall Wear the Crown? From CAT_the_count_of_barcelona. ROOT is Catalonia.
+# Each option crowns one claimant (common/characters/hcat_CAT.txt) and adds a
+# permanent dynasty spirit (hcat_house_*).
+country_event = {
+	id = hcat_catalonia.4
+	title = hcat_catalonia.4.t
+	desc = hcat_catalonia.4.desc
+	picture = GFX_report_event_monarchy_question
+	is_triggered_only = yes
+
+	# House of Bourbon: Juan de Borbon. Better relations with Spain.
+	option = {
+		name = hcat_catalonia.4.a
+		ai_chance = { base = 3 }
+		recruit_character = CAT_juan_de_borbon
+		hcat_crown_the_claimant = yes
+		promote_character = { character = CAT_juan_de_borbon ideology = despotism }
+		set_country_flag = hcat_dynasty_bourbon
+		add_ideas = hcat_house_of_bourbon
+		if = {
+			limit = { SPR = { exists = yes } }
+			SPR = { add_opinion_modifier = { target = ROOT modifier = hcat_a_bourbon_in_barcelona } }
+			add_opinion_modifier = { target = SPR modifier = hcat_a_bourbon_in_barcelona }
+		}
+	}
+
+	# Refound the House of Barcelona: a Catalan chosen by the Corts.
+	option = {
+		name = hcat_catalonia.4.b
+		ai_chance = { base = 4 }
+		recruit_character = CAT_ramon_berenguer
+		hcat_crown_the_claimant = yes
+		promote_character = { character = CAT_ramon_berenguer ideology = moderatism }
+		set_country_flag = hcat_dynasty_barcelona
+		add_ideas = hcat_house_of_barcelona
+		add_stability = 0.05
+	}
+
+	# House of Habsburg: Otto von Habsburg, as Catalonia backed Archduke Charles in 1705.
+	option = {
+		name = hcat_catalonia.4.c
+		ai_chance = { base = 2 }
+		recruit_character = CAT_otto_von_habsburg
+		hcat_crown_the_claimant = yes
+		promote_character = { character = CAT_otto_von_habsburg ideology = despotism }
+		set_country_flag = hcat_dynasty_habsburg
+		add_ideas = hcat_house_of_habsburg
+		every_country = {
+			limit = {
+				OR = { original_tag = AUS original_tag = HUN }
+				exists = yes
+			}
+			add_opinion_modifier = { target = ROOT modifier = hcat_a_habsburg_in_barcelona }
+		}
+		if = {
+			limit = { GER = { exists = yes } }
+			GER = { add_opinion_modifier = { target = ROOT modifier = hcat_habsburg_restoration } }
+		}
+	}
+
+	# House of Urgell: the line passed over at Caspe in 1412.
+	option = {
+		name = hcat_catalonia.4.d
+		ai_chance = { base = 2 }
+		recruit_character = CAT_jaume_d_urgell
+		hcat_crown_the_claimant = yes
+		promote_character = { character = CAT_jaume_d_urgell ideology = despotism }
+		set_country_flag = hcat_dynasty_urgell
+		add_ideas = hcat_house_of_urgell
+		add_war_support = 0.05
+	}
+}
