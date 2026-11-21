@@ -116,7 +116,10 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
 war and +1 while its stability is below 30% (`on_monthly_CAT`).
 
 **Breakaway**: Proclaim the Catalan State needs autonomy ≥ 80 and fires `hcat_spain.1` to
-Spain. *Let Catalonia go* frees it peacefully and settles the question as independence.
+Spain. It also raises the Catalan forces in Barcelona
+(`hcat_raise_the_catalan_forces`): three *Milícies Catalanes* militia divisions, two
+*Mossos d'Esquadra* infantry divisions with military police, and the *Regiment Pirinenc
+núm. 1* mountaineer division. *Let Catalonia go* frees it peacefully and settles the question as independence.
 *Crush the separatists* frees it and Spain declares an annexation war
 (`hcat_war_of_catalan_independence`). The AI mostly refuses unless it is in a civil war or
 below 30% stability. The three ideological focuses need Catalonia to be independent.

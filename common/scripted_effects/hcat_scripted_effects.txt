@@ -1,4 +1,4 @@
-# HoI IV - Catalunya: scripted effects
+﻿# HoI IV - Catalunya: scripted effects
 #
 # Core state of the mod: global variable `hcat_autonomy` (0-100).
 #   0   = Catalonia fully integrated into a centralised Spain
@@ -106,7 +106,89 @@ hcat_spanish_weakness_drift = {
 hcat_proclaim_the_catalan_state = {
 	set_global_flag = hcat_catalan_state_proclaimed
 	custom_effect_tooltip = hcat_proclaim_the_catalan_state_tt
+	hcat_raise_the_catalan_forces = yes
 	OVERLORD = { country_event = { id = hcat_spain.1 } }
+}
+
+# Country scope: Catalonia, when it proclaims the Catalan State.
+# Unlocks militia and military police, adds three templates and spawns
+# three militia divisions, two of Mossos d'Esquadra and the Regiment Pirinenc núm. 1
+# in Barcelona (province 9764).
+# The file is UTF-8 with BOM so the accented template names load.
+hcat_raise_the_catalan_forces = {
+	custom_effect_tooltip = hcat_raise_the_catalan_forces_tt
+	hidden_effect = {
+		set_technology = { militia_tech = 1 tech_military_police = 1 popup = no }
+
+		division_template = {
+			name = "Milícies Catalanes"
+			priority = 0
+			regiments = {
+				militia = { x = 0 y = 0 }
+				militia = { x = 0 y = 1 }
+				militia = { x = 0 y = 2 }
+				militia = { x = 1 y = 0 }
+				militia = { x = 1 y = 1 }
+				militia = { x = 1 y = 2 }
+			}
+		}
+		division_template = {
+			name = "Mossos d'Esquadra"
+			priority = 1
+			regiments = {
+				infantry = { x = 0 y = 0 }
+				infantry = { x = 0 y = 1 }
+				infantry = { x = 0 y = 2 }
+			}
+			support = {
+				military_police = { x = 0 y = 0 }
+			}
+		}
+		division_template = {
+			name = "Regiment Pirinenc"
+			priority = 2
+			regiments = {
+				mountaineers = { x = 0 y = 0 }
+				mountaineers = { x = 0 y = 1 }
+				mountaineers = { x = 1 y = 0 }
+				mountaineers = { x = 1 y = 1 }
+			}
+			support = {
+				engineer = { x = 0 y = 0 }
+			}
+		}
+
+		create_unit = {
+			division = "division_template = \"Milícies Catalanes\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.8"
+			owner = ROOT
+			prioritize_location = 9764
+		}
+		create_unit = {
+			division = "division_template = \"Milícies Catalanes\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.8"
+			owner = ROOT
+			prioritize_location = 9764
+		}
+		create_unit = {
+			division = "division_template = \"Milícies Catalanes\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.8"
+			owner = ROOT
+			prioritize_location = 9764
+		}
+		create_unit = {
+			division = "name = \"1a Divisió dels Mossos d'Esquadra\" division_template = \"Mossos d'Esquadra\" start_experience_factor = 0.3 start_equipment_factor = 1"
+			owner = ROOT
+			prioritize_location = 9764
+		}
+		create_unit = {
+			division = "name = \"2a Divisió dels Mossos d'Esquadra\" division_template = \"Mossos d'Esquadra\" start_experience_factor = 0.3 start_equipment_factor = 1"
+			owner = ROOT
+			prioritize_location = 9764
+		}
+		create_unit = {
+			division = "name = \"Regiment Pirinenc núm. 1\" division_template = \"Regiment Pirinenc\" start_experience_factor = 0.4 start_equipment_factor = 1"
+			owner = ROOT
+			prioritize_location = 9764
+		}
+	}
 }
 
 # Country scope: Catalonia, after it breaks free (either way).

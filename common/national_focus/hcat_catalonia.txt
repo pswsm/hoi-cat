@@ -33,6 +33,10 @@ focus_tree = {
 		focus = CAT_the_catalan_question
 	}
 
+	# Keep the continuous focus box below the deepest branch (y 9, about 1300 px),
+	# or it covers the bottom focuses and blocks clicks. Move it down if the tree grows.
+	continuous_focus_position = { x = 50 y = 1800 }
+
 	focus = {
 		id = CAT_the_catalan_question
 		icon = GFX_goal_generic_political_pressure
