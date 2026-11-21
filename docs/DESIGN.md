@@ -78,9 +78,37 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
                |                              |
   Proclaim the Catalan State (≥ 80)     Industry of the Republic
      /         |          \
- Mediterranean  Crown of   Home of        (ideological content: TODO)
+ Mediterranean  Crown of   Home of        (Aragó, Anarchy: TODO)
  Democracy      Aragó      Anarchy
 ```
+
+#### Mediterranean Democracy
+
+```
+                     A Mediterranean Democracy (+A Fragile Republic)
+              /                    |                        \
+ Parliament of Catalonia   Port of Barcelona        Seek International Recognition
+              |                    |                        |
+ The Rabassaires Law       Factory of the Med.      The Army of Catalonia
+              |                    |                        |
+ A Republic of Citizens    Mediterranean Trade      Hold the Ebro and the Pyrenees
+              \                    |                   /              \
+               \                   |         Entente with France  |  Mediterranean Accord
+                \                  |                   \              /
+                     The Beacon of the Mediterranean
+```
+
+- The root makes Catalonia democratic if it is not and adds *A Fragile Republic*
+  (−15% PP, −10% stability, −10% construction). The politics column upgrades it to
+  *A Republic Finds Its Feet*, then *A Republic of Citizens* (+5% stability, +10% PP).
+- Economy: naval base +2 and a dockyard in Barcelona, two civilian factories, and the
+  *Mediterranean Trade Routes* spirit.
+- Foreign policy and defence: an opinion bonus with democratic majors, the *A Citizen Army*
+  spirit, then level 2 border bunkers and coastal bunkers in every core state.
+- Allies, mutually exclusive: *Entente with France* joins France's faction (or gets a French
+  guarantee if France has none); *The Mediterranean Accord* founds a defensive democratic
+  faction from `faction_template_defensive_democratic`.
+- The capstone needs all three columns and gives a research slot.
 
 **Raising autonomy**: focuses; two repeatable decisions in "The Catalan Question"
 (Negotiate Competences, 50 PP, +5 every 90 days; Mobilise Civil Society, 75 PP, +8 every

@@ -11,6 +11,9 @@
 #           /        |           \
 #  mediterranean   crown of     home of
 #   democracy       aragó       anarchy
+#
+# Mediterranean Democracy has three columns (politics, economy, foreign policy and
+# defence) that meet in CAT_the_beacon_of_the_mediterranean; see docs/DESIGN.md.
 
 focus_tree = {
 	id = hcat_catalan_focus
@@ -33,7 +36,7 @@ focus_tree = {
 	focus = {
 		id = CAT_the_catalan_question
 		icon = GFX_goal_generic_political_pressure
-		x = 6
+		x = 13
 		y = 0
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -52,7 +55,7 @@ focus_tree = {
 		prerequisite = { focus = CAT_the_catalan_question }
 		mutually_exclusive = { focus = CAT_within_spain }
 		relative_position_id = CAT_the_catalan_question
-		x = -3
+		x = -4
 		y = 1
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -100,7 +103,7 @@ focus_tree = {
 		ai_will_do = { base = 1 }
 	}
 
-	# The three paths of an independent Catalonia. Their content comes later.
+	# The three paths of an independent Catalonia, spaced 7 apart so each has room.
 
 	focus = {
 		id = CAT_mediterranean_democracy
@@ -109,15 +112,274 @@ focus_tree = {
 		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
 		mutually_exclusive = { focus = CAT_home_of_anarchy }
 		relative_position_id = CAT_proclaim_the_catalan_state
-		x = -2
+		x = -7
 		y = 1
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		available = { is_subject = no }
 		completion_reward = {
 			set_country_flag = hcat_path_mediterranean_democracy
+			if = {
+				limit = { NOT = { has_government = democratic } }
+				set_politics = { ruling_party = democratic elections_allowed = yes }
+			}
+			add_popularity = { ideology = democratic popularity = 0.10 }
+			add_ideas = hcat_fragile_republic
 		}
 		ai_will_do = { base = 1 }
+	}
+
+	### Mediterranean Democracy ###
+	# Three columns (politics, economy, foreign policy and defence) that meet in
+	# The Beacon of the Mediterranean. Columns sit at x 0-5, left of the Crown of Aragó.
+
+	# Politics
+
+	focus = {
+		id = CAT_the_parliament_of_catalonia
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = CAT_mediterranean_democracy }
+		relative_position_id = CAT_mediterranean_democracy
+		x = -2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			swap_ideas = { remove_idea = hcat_fragile_republic add_idea = hcat_republic_finds_its_feet }
+			add_popularity = { ideology = democratic popularity = 0.10 }
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_rabassaires_law
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = CAT_the_parliament_of_catalonia }
+		relative_position_id = CAT_the_parliament_of_catalonia
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			add_stability = 0.05
+			165 = { add_extra_state_shared_building_slots = 1 }
+			add_ideas = hcat_the_rabassaires_law
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_a_republic_of_citizens
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = CAT_the_rabassaires_law }
+		relative_position_id = CAT_the_rabassaires_law
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			swap_ideas = { remove_idea = hcat_republic_finds_its_feet add_idea = hcat_a_republic_of_citizens }
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# Economy
+
+	focus = {
+		id = CAT_the_port_of_barcelona
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = CAT_mediterranean_democracy }
+		relative_position_id = CAT_mediterranean_democracy
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = naval_base level = 2 province = 9764 instant_build = yes }
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_factory_of_the_mediterranean
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = CAT_the_port_of_barcelona }
+		relative_position_id = CAT_the_port_of_barcelona
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_mediterranean_trade
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = CAT_the_factory_of_the_mediterranean }
+		relative_position_id = CAT_the_factory_of_the_mediterranean
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = hcat_mediterranean_trade_routes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# Foreign policy and defence
+
+	focus = {
+		id = CAT_seek_recognition
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = CAT_mediterranean_democracy }
+		relative_position_id = CAT_mediterranean_democracy
+		x = 2
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_political_power = 50
+			every_country = {
+				limit = {
+					has_government = democratic
+					is_major = yes
+				}
+				add_opinion_modifier = { target = ROOT modifier = hcat_recognised_the_catalan_republic }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_army_of_catalonia
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = CAT_seek_recognition }
+		relative_position_id = CAT_seek_recognition
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			army_experience = 15
+			add_ideas = hcat_a_citizen_army
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_hold_the_ebro_and_the_pyrenees
+		icon = GFX_goal_generic_defence
+		prerequisite = { focus = CAT_the_army_of_catalonia }
+		relative_position_id = CAT_the_army_of_catalonia
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			every_owned_state = {
+				limit = { is_core_of = ROOT }
+				add_building_construction = {
+					type = bunker
+					level = 2
+					province = { all_provinces = yes limit_to_border = yes }
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = { all_provinces = yes limit_to_naval_base = yes }
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# Allies: France's alliance, or a pact of our own.
+
+	focus = {
+		id = CAT_entente_with_france
+		icon = GFX_goal_generic_alliance
+		prerequisite = { focus = CAT_hold_the_ebro_and_the_pyrenees }
+		mutually_exclusive = { focus = CAT_the_mediterranean_accord }
+		relative_position_id = CAT_hold_the_ebro_and_the_pyrenees
+		x = -1
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_in_faction = no
+			FRA = {
+				exists = yes
+				has_government = democratic
+			}
+		}
+		completion_reward = {
+			FRA = { add_opinion_modifier = { target = ROOT modifier = hcat_recognised_the_catalan_republic } }
+			if = {
+				limit = { FRA = { is_in_faction = yes } }
+				FRA = { faction_leader = { add_to_faction = ROOT } }
+			}
+			else = {
+				FRA = { give_guarantee = ROOT }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_mediterranean_accord
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = CAT_hold_the_ebro_and_the_pyrenees }
+		mutually_exclusive = { focus = CAT_entente_with_france }
+		relative_position_id = CAT_hold_the_ebro_and_the_pyrenees
+		x = 1
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_in_faction = no
+			has_government = democratic
+		}
+		completion_reward = {
+			set_rule = { can_create_factions = yes }
+			create_faction_from_template = {
+				template = faction_template_defensive_democratic
+				name = hcat_the_mediterranean_accord
+			}
+			add_war_support = 0.05
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	focus = {
+		id = CAT_the_beacon_of_the_mediterranean
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = CAT_a_republic_of_citizens }
+		prerequisite = { focus = CAT_mediterranean_trade }
+		prerequisite = { focus = CAT_entente_with_france focus = CAT_the_mediterranean_accord }
+		relative_position_id = CAT_mediterranean_democracy
+		x = 0
+		y = 5
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_research_slot = 1
+			add_stability = 0.05
+			add_popularity = { ideology = democratic popularity = 0.05 }
+		}
+		ai_will_do = { base = 5 }
 	}
 
 	focus = {
@@ -145,7 +407,7 @@ focus_tree = {
 		mutually_exclusive = { focus = CAT_mediterranean_democracy }
 		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
 		relative_position_id = CAT_proclaim_the_catalan_state
-		x = 2
+		x = 7
 		y = 1
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -164,7 +426,7 @@ focus_tree = {
 		prerequisite = { focus = CAT_the_catalan_question }
 		mutually_exclusive = { focus = CAT_the_road_to_independence }
 		relative_position_id = CAT_the_catalan_question
-		x = 3
+		x = 9
 		y = 1
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }

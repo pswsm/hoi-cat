@@ -1,0 +1,9 @@
+# HoI IV - Catalunya: opinion modifiers.
+
+opinion_modifiers = {
+	# Seek International Recognition / Entente with France.
+	hcat_recognised_the_catalan_republic = {
+		value = 25
+		decay = 0.25
+	}
+}

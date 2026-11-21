@@ -1,0 +1,78 @@
+# HoI IV - Catalunya: Catalan national spirits.
+
+ideas = {
+	country = {
+
+		### Mediterranean Democracy ###
+
+		# Starts the branch; Parliament of Catalonia swaps it for the next one.
+		hcat_fragile_republic = {
+			picture = generic_disjointed_gov
+			allowed = { original_tag = CAT }
+			allowed_civil_war = { has_government = democratic }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = -0.15
+				stability_factor = -0.10
+				production_speed_buildings_factor = -0.10
+			}
+		}
+
+		# Swapped in by Parliament of Catalonia; A Republic of Citizens replaces it.
+		hcat_republic_finds_its_feet = {
+			picture = generic_democratic_drift_bonus
+			allowed = { original_tag = CAT }
+			allowed_civil_war = { has_government = democratic }
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.03
+				democratic_drift = 0.03
+			}
+		}
+
+		hcat_a_republic_of_citizens = {
+			picture = generic_constitutional_guarantees
+			allowed = { original_tag = CAT }
+			allowed_civil_war = { has_government = democratic }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.10
+				democratic_drift = 0.03
+			}
+		}
+
+		hcat_the_rabassaires_law = {
+			picture = generic_agrarian_reform
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				monthly_population = 0.10
+				conscription = 0.005
+				stability_weekly = 0.001
+			}
+		}
+
+		hcat_mediterranean_trade_routes = {
+			picture = generic_foreign_capital
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				production_factory_max_efficiency_factor = 0.05
+				trade_opinion_factor = 0.25
+			}
+		}
+
+		hcat_a_citizen_army = {
+			picture = generic_army_europe_2
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				army_morale_factor = 0.05
+				army_defence_factor = 0.05
+				conscription = 0.005
+			}
+		}
+	}
+}
