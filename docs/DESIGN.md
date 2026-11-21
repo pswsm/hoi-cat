@@ -117,7 +117,7 @@ war and +1 while its stability is below 30% (`on_monthly_CAT`).
 
 **Breakaway**: Proclaim the Catalan State needs autonomy ≥ 80 and fires `hcat_spain.1` to
 Spain. It also raises the Catalan forces in Barcelona
-(`hcat_raise_the_catalan_forces`): three *Milícies Catalanes* militia divisions, two
+(`hcat_raise_the_catalan_forces`, OOB `history/units/hcat_CAT_catalan_forces.txt`): three *Milícies Catalanes* militia divisions, two
 *Mossos d'Esquadra* infantry divisions with military police, and the *Regiment Pirinenc
 núm. 1* mountaineer division. *Let Catalonia go* frees it peacefully and settles the question as independence.
 *Crush the separatists* frees it and Spain declares an annexation war
@@ -137,6 +137,10 @@ Catalonia stability and fires `hcat_catalonia.3`.
 - Vanilla files are never overwritten; content goes in new `hcat_*` files.
 - Localisation ships in English and Spanish (HoI4 has no Catalan language slot).
   Files must be UTF-8 with BOM.
+- Script files under `common/` and `events/` must have **no** BOM: a BOM breaks the scripted
+  effects file and every `hcat_` effect then reads as unknown. Keep them ASCII outside
+  comments. Accented unit and template names go in `history/units/` OOB files (UTF-8 with
+  BOM, like vanilla) loaded with `load_oob`.
 
 ## Vanilla overrides
 
