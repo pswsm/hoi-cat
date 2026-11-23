@@ -35,7 +35,7 @@ focus_tree = {
 		focus = CAT_the_catalan_question
 	}
 
-	# Keep the continuous focus box below the deepest branch (y 9, about 1300 px),
+	# Keep the continuous focus box below the deepest branch (y 10, about 1400 px),
 	# or it covers the bottom focuses and blocks clicks. Move it down if the tree grows.
 	continuous_focus_position = { x = 50 y = 1800 }
 
@@ -421,13 +421,18 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = CAT_restore_the_crown_of_aragon }
 		relative_position_id = CAT_restore_the_crown_of_aragon
-		x = -2
+		x = 0
 		y = 1
-		cost = 10
+		# 5 x 7 = 35 days, during which the hcat_crown events build support.
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
+		# Starts the contest: base support for each house, then the event chain.
+		select_effect = {
+			hcat_start_the_crown_contest = yes
+		}
 		completion_reward = {
 			custom_effect_tooltip = hcat_choose_a_claimant_tt
-			country_event = { id = hcat_catalonia.4 }
+			hidden_effect = { hcat_crown_the_leading_claimant = yes }
 		}
 		ai_will_do = { base = 5 }
 	}
@@ -437,7 +442,7 @@ focus_tree = {
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = CAT_the_count_of_barcelona }
 		relative_position_id = CAT_the_count_of_barcelona
-		x = 0
+		x = -2
 		y = 1
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
@@ -467,8 +472,8 @@ focus_tree = {
 	focus = {
 		id = CAT_the_lands_of_the_crown
 		icon = GFX_goal_generic_more_territorial_claims
-		prerequisite = { focus = CAT_restore_the_crown_of_aragon }
-		relative_position_id = CAT_restore_the_crown_of_aragon
+		prerequisite = { focus = CAT_the_count_of_barcelona }
+		relative_position_id = CAT_the_count_of_barcelona
 		x = 0
 		y = 1
 		cost = 10
@@ -565,8 +570,8 @@ focus_tree = {
 	focus = {
 		id = CAT_the_almogavars
 		icon = GFX_goal_generic_special_forces
-		prerequisite = { focus = CAT_restore_the_crown_of_aragon }
-		relative_position_id = CAT_restore_the_crown_of_aragon
+		prerequisite = { focus = CAT_the_count_of_barcelona }
+		relative_position_id = CAT_the_count_of_barcelona
 		x = 2
 		y = 1
 		cost = 10
@@ -655,7 +660,7 @@ focus_tree = {
 		prerequisite = { focus = CAT_the_mediterranean_kingdoms }
 		relative_position_id = CAT_restore_the_crown_of_aragon
 		x = 0
-		y = 5
+		y = 6
 		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {

@@ -114,24 +114,36 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
 
 ```
                   Restore the Crown of Aragó (+A Disputed Crown)
+                                   |
+                  The Count of Barcelona (35 days: the contest for the Crown)
               /                    |                       \
- The Count of Barcelona    The Lands of the Crown       The Almogàvers
+ The Corts Generals        The Lands of the Crown       The Almogàvers
               |                    |                       |
- The Corts Generals        Reclaim Aragon               The Consulate of the Sea
+ The Usatges of Barcelona  Reclaim Aragon               The Consulate of the Sea
               |                    |                       |
- The Usatges of Barcelona  Reclaim Valencia and Isles   Northern Catalonia
-              \                    |                       |
-               \           The Crown United             The Mediterranean Kingdoms
-                \                  |                      /
+              |            Reclaim Valencia and Isles   Northern Catalonia
+              |                    |                       |
+              |            The Crown United             The Mediterranean Kingdoms
+               \                   |                      /
                        The Crown of Aragon Reborn
 ```
 
-- The Crown: *The Count of Barcelona* fires `hcat_catalonia.4`, *Who Shall Wear the Crown?*
-  Every option makes the government non-aligned without elections and takes vanilla's
+- The contest for the Crown: *The Count of Barcelona* is the only way into the branch and
+  takes 35 days. Its `select_effect` (`hcat_start_the_crown_contest`) sets base support in
+  four country variables, `hcat_claim_<house>` (Bourbon 4, Barcelona 4, Habsburg 2,
+  Urgell 2), and queues five events (`events/hcat_crown.txt`, days 3, 10, 17, 24, 31).
+  Each event's options add support to one or more houses, and the last one lets you spend
+  25 PP to add 3 to one house. Their descriptions show the current standings. An event
+  only fires while the focus is still in progress, and only once per contest, so
+  cancelling the focus stops it. On completion `hcat_crown_the_leading_claimant` crowns the
+  leader (ties go to Barcelona, Bourbon, Habsburg, then Urgell) and announces it with
+  `hcat_catalonia.4`, *The Corts Have Chosen*.
+- Every winner makes the government non-aligned without elections and takes vanilla's
   `CAT_aragon` cosmetic tag ("Crown of Aragon", with its own non-aligned flag), then
-  crowns a claimant (`common/characters/hcat_CAT.txt`) with a permanent dynasty spirit:
+  crowns a claimant (`common/characters/hcat_CAT.txt`, effects in
+  `hcat_crown_house_of_<house>`) with a permanent dynasty spirit:
 
-  | Option | Claimant | Spirit | Other effects |
+  | House | Claimant | Spirit | Other effects |
   |---|---|---|---|
   | House of Bourbon | Juan de Borbón | +10% PP, −5% stability | +40 opinion with Spain, both ways |
   | Refound the House of Barcelona | Ramon Berenguer (fictional) | +10% stability, +5% war support, −10% PP | +5% stability |

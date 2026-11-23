@@ -243,10 +243,116 @@ hcat_catalonia_after_the_civil_war = {
 	}
 }
 
-# Country scope: Catalonia, from each option of hcat_catalonia.4 (Who Shall Wear the
-# Crown?), after recruit_character and before promote_character.
+# Country scope: Catalonia, from each hcat_crown_house_of_<house>, after
+# recruit_character and before promote_character.
 hcat_crown_the_claimant = {
 	set_politics = { ruling_party = neutrality elections_allowed = no }
 	add_popularity = { ideology = neutrality popularity = 0.20 }
 	set_cosmetic_tag = CAT_aragon
+}
+
+### The contest for the Crown of Arago (CAT_the_count_of_barcelona, 35 days) ###
+# Support is held in four country variables on Catalonia: hcat_claim_<house>.
+
+# Country scope: Catalonia, from the focus's select_effect.
+# Every hcat_crown event is queued now; each one only fires while the focus is still in
+# progress and only once per contest (hcat_crown_event_<n>_seen), so cancelling or
+# restarting the focus does not double them up.
+hcat_start_the_crown_contest = {
+	set_variable = { hcat_claim_bourbon = 4 }
+	set_variable = { hcat_claim_barcelona = 4 }
+	set_variable = { hcat_claim_habsburg = 2 }
+	set_variable = { hcat_claim_urgell = 2 }
+	clr_country_flag = hcat_crown_event_1_seen
+	clr_country_flag = hcat_crown_event_2_seen
+	clr_country_flag = hcat_crown_event_3_seen
+	clr_country_flag = hcat_crown_event_4_seen
+	clr_country_flag = hcat_crown_event_5_seen
+	country_event = { id = hcat_crown.1 days = 3 }
+	country_event = { id = hcat_crown.2 days = 10 }
+	country_event = { id = hcat_crown.3 days = 17 }
+	country_event = { id = hcat_crown.4 days = 24 }
+	country_event = { id = hcat_crown.5 days = 31 }
+}
+
+# Country scope: Catalonia, when the focus completes. Crowns the house with the most
+# support. Ties go, in order, to Barcelona, Bourbon, Habsburg, Urgell.
+hcat_crown_the_leading_claimant = {
+	if = {
+		limit = {
+			NOT = { check_variable = { hcat_claim_barcelona < hcat_claim_bourbon } }
+			NOT = { check_variable = { hcat_claim_barcelona < hcat_claim_habsburg } }
+			NOT = { check_variable = { hcat_claim_barcelona < hcat_claim_urgell } }
+		}
+		set_country_flag = hcat_crown_winner_barcelona
+	}
+	else_if = {
+		limit = {
+			NOT = { check_variable = { hcat_claim_bourbon < hcat_claim_habsburg } }
+			NOT = { check_variable = { hcat_claim_bourbon < hcat_claim_urgell } }
+		}
+		set_country_flag = hcat_crown_winner_bourbon
+	}
+	else_if = {
+		limit = {
+			NOT = { check_variable = { hcat_claim_habsburg < hcat_claim_urgell } }
+		}
+		set_country_flag = hcat_crown_winner_habsburg
+	}
+	else = {
+		set_country_flag = hcat_crown_winner_urgell
+	}
+	country_event = { id = hcat_catalonia.4 }
+}
+
+# Country scope: Catalonia. One per house, from hcat_catalonia.4.
+
+hcat_crown_house_of_bourbon = {
+	recruit_character = CAT_juan_de_borbon
+	hcat_crown_the_claimant = yes
+	promote_character = { character = CAT_juan_de_borbon ideology = despotism }
+	set_country_flag = hcat_dynasty_bourbon
+	add_ideas = hcat_house_of_bourbon
+	if = {
+		limit = { SPR = { exists = yes } }
+		SPR = { add_opinion_modifier = { target = ROOT modifier = hcat_a_bourbon_in_barcelona } }
+		add_opinion_modifier = { target = SPR modifier = hcat_a_bourbon_in_barcelona }
+	}
+}
+
+hcat_crown_house_of_barcelona = {
+	recruit_character = CAT_ramon_berenguer
+	hcat_crown_the_claimant = yes
+	promote_character = { character = CAT_ramon_berenguer ideology = moderatism }
+	set_country_flag = hcat_dynasty_barcelona
+	add_ideas = hcat_house_of_barcelona
+	add_stability = 0.05
+}
+
+hcat_crown_house_of_habsburg = {
+	recruit_character = CAT_otto_von_habsburg
+	hcat_crown_the_claimant = yes
+	promote_character = { character = CAT_otto_von_habsburg ideology = despotism }
+	set_country_flag = hcat_dynasty_habsburg
+	add_ideas = hcat_house_of_habsburg
+	every_country = {
+		limit = {
+			OR = { original_tag = AUS original_tag = HUN }
+			exists = yes
+		}
+		add_opinion_modifier = { target = ROOT modifier = hcat_a_habsburg_in_barcelona }
+	}
+	if = {
+		limit = { GER = { exists = yes } }
+		GER = { add_opinion_modifier = { target = ROOT modifier = hcat_habsburg_restoration } }
+	}
+}
+
+hcat_crown_house_of_urgell = {
+	recruit_character = CAT_jaume_d_urgell
+	hcat_crown_the_claimant = yes
+	promote_character = { character = CAT_jaume_d_urgell ideology = despotism }
+	set_country_flag = hcat_dynasty_urgell
+	add_ideas = hcat_house_of_urgell
+	add_war_support = 0.05
 }

@@ -1,0 +1,183 @@
+# HoI IV - Catalunya: the contest for the Crown of Arago.
+# Fired by hcat_start_the_crown_contest while CAT_the_count_of_barcelona is in progress.
+# Each option adds support to one or more houses (hcat_claim_<house>); the focus crowns
+# the leader on completion (hcat_crown_the_leading_claimant). ROOT is Catalonia.
+add_namespace = hcat_crown
+
+# Envoys of Juan de Borbon arrive in Barcelona. Queued for day 3 of the focus.
+country_event = {
+	id = hcat_crown.1
+	title = hcat_crown.1.t
+	desc = hcat_crown.1.desc
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	trigger = {
+		focus_progress = { focus = CAT_the_count_of_barcelona progress > 0 }
+		NOT = { has_country_flag = hcat_crown_event_1_seen }
+	}
+
+	immediate = { hidden_effect = { set_country_flag = hcat_crown_event_1_seen } }
+
+	option = {
+		name = hcat_crown.1.a
+		ai_chance = { base = 3 }
+		add_to_variable = { hcat_claim_bourbon = 3 tooltip = hcat_claim_bourbon_tt }
+	}
+
+	option = {
+		name = hcat_crown.1.b
+		ai_chance = { base = 3 }
+		add_to_variable = { hcat_claim_barcelona = 2 tooltip = hcat_claim_barcelona_tt }
+		add_to_variable = { hcat_claim_urgell = 1 tooltip = hcat_claim_urgell_tt }
+	}
+}
+
+# A letter from Otto von Habsburg in his Belgian exile. Queued for day 10 of the focus.
+country_event = {
+	id = hcat_crown.2
+	title = hcat_crown.2.t
+	desc = hcat_crown.2.desc
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+
+	trigger = {
+		focus_progress = { focus = CAT_the_count_of_barcelona progress > 0 }
+		NOT = { has_country_flag = hcat_crown_event_2_seen }
+	}
+
+	immediate = { hidden_effect = { set_country_flag = hcat_crown_event_2_seen } }
+
+	option = {
+		name = hcat_crown.2.a
+		ai_chance = { base = 2 }
+		add_to_variable = { hcat_claim_habsburg = 3 tooltip = hcat_claim_habsburg_tt }
+	}
+
+	option = {
+		name = hcat_crown.2.b
+		ai_chance = { base = 3 }
+		add_to_variable = { hcat_claim_barcelona = 1 tooltip = hcat_claim_barcelona_tt }
+		add_to_variable = { hcat_claim_bourbon = 1 tooltip = hcat_claim_bourbon_tt }
+	}
+}
+
+# The historians quarrel over Caspe and the old Counts. Queued for day 17 of the focus.
+country_event = {
+	id = hcat_crown.3
+	title = hcat_crown.3.t
+	desc = hcat_crown.3.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	trigger = {
+		focus_progress = { focus = CAT_the_count_of_barcelona progress > 0 }
+		NOT = { has_country_flag = hcat_crown_event_3_seen }
+	}
+
+	immediate = { hidden_effect = { set_country_flag = hcat_crown_event_3_seen } }
+
+	option = {
+		name = hcat_crown.3.a
+		ai_chance = { base = 2 }
+		add_to_variable = { hcat_claim_urgell = 3 tooltip = hcat_claim_urgell_tt }
+	}
+
+	option = {
+		name = hcat_crown.3.b
+		ai_chance = { base = 3 }
+		add_to_variable = { hcat_claim_barcelona = 3 tooltip = hcat_claim_barcelona_tt }
+	}
+
+	option = {
+		name = hcat_crown.3.c
+		ai_chance = { base = 2 }
+		add_to_variable = { hcat_claim_habsburg = 2 tooltip = hcat_claim_habsburg_tt }
+		add_to_variable = { hcat_claim_bourbon = 1 tooltip = hcat_claim_bourbon_tt }
+	}
+}
+
+# Barcelona's industrialists want a say. Queued for day 24 of the focus.
+country_event = {
+	id = hcat_crown.4
+	title = hcat_crown.4.t
+	desc = hcat_crown.4.desc
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+
+	trigger = {
+		focus_progress = { focus = CAT_the_count_of_barcelona progress > 0 }
+		NOT = { has_country_flag = hcat_crown_event_4_seen }
+	}
+
+	immediate = { hidden_effect = { set_country_flag = hcat_crown_event_4_seen } }
+
+	option = {
+		name = hcat_crown.4.a
+		ai_chance = { base = 3 }
+		add_to_variable = { hcat_claim_bourbon = 2 tooltip = hcat_claim_bourbon_tt }
+		add_to_variable = { hcat_claim_habsburg = 1 tooltip = hcat_claim_habsburg_tt }
+		add_political_power = 25
+	}
+
+	option = {
+		name = hcat_crown.4.b
+		ai_chance = { base = 3 }
+		add_to_variable = { hcat_claim_barcelona = 2 tooltip = hcat_claim_barcelona_tt }
+		add_to_variable = { hcat_claim_urgell = 2 tooltip = hcat_claim_urgell_tt }
+	}
+}
+
+# The Corts deliberate; last chance to lobby. Queued for day 31 of the focus.
+country_event = {
+	id = hcat_crown.5
+	title = hcat_crown.5.t
+	desc = hcat_crown.5.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	trigger = {
+		focus_progress = { focus = CAT_the_count_of_barcelona progress > 0 }
+		NOT = { has_country_flag = hcat_crown_event_5_seen }
+	}
+
+	immediate = { hidden_effect = { set_country_flag = hcat_crown_event_5_seen } }
+
+	option = {
+		name = hcat_crown.5.a
+		ai_chance = { base = 5 }
+		add_stability = 0.02
+	}
+
+	option = {
+		name = hcat_crown.5.b
+		trigger = { has_political_power > 24 }
+		ai_chance = { base = 1 }
+		add_political_power = -25
+		add_to_variable = { hcat_claim_bourbon = 3 tooltip = hcat_claim_bourbon_tt }
+	}
+
+	option = {
+		name = hcat_crown.5.c
+		trigger = { has_political_power > 24 }
+		ai_chance = { base = 1 }
+		add_political_power = -25
+		add_to_variable = { hcat_claim_barcelona = 3 tooltip = hcat_claim_barcelona_tt }
+	}
+
+	option = {
+		name = hcat_crown.5.d
+		trigger = { has_political_power > 24 }
+		ai_chance = { base = 1 }
+		add_political_power = -25
+		add_to_variable = { hcat_claim_habsburg = 3 tooltip = hcat_claim_habsburg_tt }
+	}
+
+	option = {
+		name = hcat_crown.5.e
+		trigger = { has_political_power > 24 }
+		ai_chance = { base = 1 }
+		add_political_power = -25
+		add_to_variable = { hcat_claim_urgell = 3 tooltip = hcat_claim_urgell_tt }
+	}
+}
