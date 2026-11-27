@@ -264,6 +264,35 @@ Catalonia stability and fires `hcat_catalonia.3`.
 - *Galeuzca* only sets `hcat_galeuzca` for now. The Basque Country and Galicia join in a
   later pass.
 
+### Industry and military (every path)
+
+Two shared trees sit right of the status quo branch, open to every path.
+
+```
+                 The Factory of Spain (x 28)
+           /                |                    \
+ The Catalan Railways   Inst. of Catalan Studies   The Arsenal of Barcelona
+ Pyrenean Hydropower    The Industrial School      La Maquinista
+ The Textile Mills      The Hispano-Suiza Works    The Flix Chemical Works
+           \                |                    /
+                 Catalan Industrial Power (all three)
+
+                 The Catalan Armed Forces (x 35)
+           /                |                    \
+ The Mountain Troops    The Coastal Fleet          The School of Aviation
+ A Catalan Doctrine     The Ictíneo                A Fighter Programme
+ The Officer School     Guard the Coast            The Air Defence of Barcelona
+           \                |                    /
+                 A Modern Military (any one column)
+```
+
+- Industry: infrastructure in core states, a construction spirit, civilian, military and
+  dockyard buildings in Barcelona, a synthetic refinery (Flix), research spirits and tech
+  bonuses (industry and electronics; motorised and fighters from Hispano-Suiza).
+- Military: army, navy and air experience, tech bonuses (infantry and artillery, land
+  doctrine, destroyers and naval doctrine, submarines, fighters and air doctrine), an
+  officer-corps spirit, naval base, coastal bunkers, air base, anti-air and radar.
+
 ## Conventions
 
 - Mod-owned scripted effects, triggers, variables, flags, decisions and loc keys use the `hcat_` prefix.

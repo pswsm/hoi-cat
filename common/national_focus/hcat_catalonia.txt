@@ -1316,4 +1316,425 @@ focus_tree = {
 		}
 		ai_will_do = { base = 10 }
 	}
+
+	### Industry ###
+	# Open to every path. Root at x 28; columns at x 26 (civilian), 28 (research),
+	# 30 (war industry), meeting in Catalan Industrial Power.
+
+	focus = {
+		id = CAT_the_factory_of_spain
+		icon = GFX_goal_generic_production
+		x = 28
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_catalan_railways
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = CAT_the_factory_of_spain }
+		relative_position_id = CAT_the_factory_of_spain
+		x = -2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			every_owned_state = {
+				limit = { is_core_of = ROOT }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_pyrenean_hydropower
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = CAT_the_catalan_railways }
+		relative_position_id = CAT_the_catalan_railways
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = hcat_pyrenean_hydropower
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_textile_mills
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = CAT_pyrenean_hydropower }
+		relative_position_id = CAT_pyrenean_hydropower
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_institute_of_catalan_studies
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = CAT_the_factory_of_spain }
+		relative_position_id = CAT_the_factory_of_spain
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_ideas = hcat_the_institute_of_catalan_studies
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_industrial_school
+		icon = GFX_goal_generic_production2
+		prerequisite = { focus = CAT_the_institute_of_catalan_studies }
+		relative_position_id = CAT_the_institute_of_catalan_studies
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAT_the_industrial_school
+				bonus = 0.5
+				uses = 2
+				category = industry
+				category = electronics
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_hispano_suiza_works
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = CAT_the_industrial_school }
+		relative_position_id = CAT_the_industrial_school
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAT_the_hispano_suiza_works
+				bonus = 0.5
+				uses = 2
+				category = motorized_equipment
+				category = light_fighter
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_arsenal_of_barcelona
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = CAT_the_factory_of_spain }
+		relative_position_id = CAT_the_factory_of_spain
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_la_maquinista
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = CAT_the_arsenal_of_barcelona }
+		relative_position_id = CAT_the_arsenal_of_barcelona
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_flix_chemical_works
+		icon = GFX_goal_generic_oil_refinery
+		prerequisite = { focus = CAT_la_maquinista }
+		relative_position_id = CAT_la_maquinista
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = synthetic_refinery level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_catalan_industrial_power
+		icon = GFX_goal_generic_production2
+		prerequisite = { focus = CAT_the_textile_mills }
+		prerequisite = { focus = CAT_the_hispano_suiza_works }
+		prerequisite = { focus = CAT_the_flix_chemical_works }
+		relative_position_id = CAT_the_factory_of_spain
+		x = 0
+		y = 4
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = hcat_catalan_industrial_power
+		}
+		ai_will_do = { base = 10 }
+	}
+
+	### Military ###
+	# Open to every path. Root at x 35; columns at x 33 (army), 35 (navy), 37 (air).
+	# The capstone needs any one column finished.
+
+	focus = {
+		id = CAT_the_catalan_armed_forces
+		icon = GFX_goal_generic_army_doctrines
+		x = 35
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		completion_reward = {
+			army_experience = 10
+			add_political_power = 25
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_mountain_troops
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = CAT_the_catalan_armed_forces }
+		relative_position_id = CAT_the_catalan_armed_forces
+		x = -2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAT_the_mountain_troops
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+			army_experience = 10
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_a_catalan_doctrine
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = CAT_the_mountain_troops }
+		relative_position_id = CAT_the_mountain_troops
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAT_a_catalan_doctrine
+				bonus = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			army_experience = 20
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_officer_school
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = CAT_a_catalan_doctrine }
+		relative_position_id = CAT_a_catalan_doctrine
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		completion_reward = {
+			add_ideas = hcat_the_catalan_officer_corps
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_coastal_fleet
+		icon = GFX_goal_generic_build_navy
+		prerequisite = { focus = CAT_the_catalan_armed_forces }
+		relative_position_id = CAT_the_catalan_armed_forces
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = CAT_the_coastal_fleet
+				bonus = 0.5
+				uses = 1
+				category = dd_tech
+				category = naval_doctrine
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_ictineo
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = CAT_the_coastal_fleet }
+		relative_position_id = CAT_the_coastal_fleet
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAT_the_ictineo
+				bonus = 0.5
+				uses = 2
+				category = ss_tech
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_guard_the_coast
+		icon = GFX_goal_generic_navy_anti_submarine
+		prerequisite = { focus = CAT_the_ictineo }
+		relative_position_id = CAT_the_ictineo
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		completion_reward = {
+			165 = {
+				add_building_construction = { type = naval_base level = 2 province = 9764 instant_build = yes }
+			}
+			every_owned_state = {
+				limit = { is_core_of = ROOT }
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					province = { all_provinces = yes limit_to_naval_base = yes }
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_school_of_aviation
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = { focus = CAT_the_catalan_armed_forces }
+		relative_position_id = CAT_the_catalan_armed_forces
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		completion_reward = {
+			air_experience = 25
+			165 = {
+				add_building_construction = { type = air_base level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_a_fighter_programme
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = CAT_the_school_of_aviation }
+		relative_position_id = CAT_the_school_of_aviation
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAT_a_fighter_programme
+				bonus = 0.5
+				uses = 2
+				category = light_fighter
+				category = air_doctrine
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_air_defence_of_barcelona
+		icon = GFX_goal_generic_radar
+		prerequisite = { focus = CAT_a_fighter_programme }
+		relative_position_id = CAT_a_fighter_programme
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		completion_reward = {
+			165 = {
+				add_building_construction = { type = anti_air_building level = 2 instant_build = yes }
+			}
+			165 = {
+				add_building_construction = { type = radar_station level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_a_modern_military
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = CAT_the_officer_school focus = CAT_guard_the_coast focus = CAT_the_air_defence_of_barcelona }
+		relative_position_id = CAT_the_catalan_armed_forces
+		x = 0
+		y = 4
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP FOCUS_FILTER_AIR_XP }
+		completion_reward = {
+			army_experience = 25
+			navy_experience = 25
+			air_experience = 25
+			add_ideas = hcat_a_modern_military
+		}
+		ai_will_do = { base = 10 }
+	}
 }
