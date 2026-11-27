@@ -115,8 +115,7 @@ focus_tree = {
 		id = CAT_mediterranean_democracy
 		icon = GFX_goal_support_democracy
 		prerequisite = { focus = CAT_proclaim_the_catalan_state }
-		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
-		mutually_exclusive = { focus = CAT_home_of_anarchy }
+		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon focus = CAT_home_of_anarchy }
 		relative_position_id = CAT_proclaim_the_catalan_state
 		x = -7
 		y = 1
@@ -392,8 +391,7 @@ focus_tree = {
 		id = CAT_restore_the_crown_of_aragon
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = CAT_proclaim_the_catalan_state }
-		mutually_exclusive = { focus = CAT_mediterranean_democracy }
-		mutually_exclusive = { focus = CAT_home_of_anarchy }
+		mutually_exclusive = { focus = CAT_mediterranean_democracy focus = CAT_home_of_anarchy }
 		relative_position_id = CAT_proclaim_the_catalan_state
 		x = 0
 		y = 1
@@ -684,8 +682,7 @@ focus_tree = {
 		id = CAT_home_of_anarchy
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = CAT_proclaim_the_catalan_state }
-		mutually_exclusive = { focus = CAT_mediterranean_democracy }
-		mutually_exclusive = { focus = CAT_restore_the_crown_of_aragon }
+		mutually_exclusive = { focus = CAT_mediterranean_democracy focus = CAT_restore_the_crown_of_aragon }
 		relative_position_id = CAT_proclaim_the_catalan_state
 		x = 7
 		y = 1
