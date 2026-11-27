@@ -63,4 +63,23 @@ hcat_catalan_question = {
 		}
 		ai_will_do = { factor = 0 }
 	}
+
+	# Restore the Crown of Arago: once the Crown is united, rename the Principat de
+	# Catalunya to the Kingdom of Aragon (flag: gfx/flags/CAT_kingdom_of_aragon.tga).
+	hcat_proclaim_the_kingdom_of_aragon = {
+		icon = generic_political_discourse
+		allowed = { original_tag = CAT }
+		visible = {
+			has_completed_focus = CAT_the_crown_united
+			NOT = { has_cosmetic_tag = CAT_kingdom_of_aragon }
+		}
+		cost = 50
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = hcat_rename_to_kingdom_of_aragon_tt
+			hidden_effect = { set_cosmetic_tag = CAT_kingdom_of_aragon }
+			add_stability = 0.03
+		}
+		ai_will_do = { base = 10 }
+	}
 }

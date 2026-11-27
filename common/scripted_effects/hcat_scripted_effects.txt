@@ -248,7 +248,9 @@ hcat_catalonia_after_the_civil_war = {
 hcat_crown_the_claimant = {
 	set_politics = { ruling_party = neutrality elections_allowed = no }
 	add_popularity = { ideology = neutrality popularity = 0.20 }
-	set_cosmetic_tag = CAT_aragon
+	# Principat de Catalunya (flag: gfx/flags/CAT_principality.tga). The Kingdom of Aragon
+	# comes later, from hcat_proclaim_the_kingdom_of_aragon.
+	set_cosmetic_tag = CAT_principality
 }
 
 ### The contest for the Crown of Arago (CAT_the_count_of_barcelona, 35 days) ###

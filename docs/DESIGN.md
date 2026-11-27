@@ -138,8 +138,8 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
   cancelling the focus stops it. On completion `hcat_crown_the_leading_claimant` crowns the
   leader (ties go to Barcelona, Bourbon, Habsburg, then Urgell) and announces it with
   `hcat_catalonia.4`, *The Corts Have Chosen*.
-- Every winner makes the government non-aligned without elections and takes vanilla's
-  `CAT_aragon` cosmetic tag ("Crown of Aragon", with its own non-aligned flag), then
+- Every winner makes the government non-aligned without elections and renames the country
+  *Principat de Catalunya* (cosmetic tag `CAT_principality`), then
   crowns a claimant (`common/characters/hcat_CAT.txt`, effects in
   `hcat_crown_house_of_<house>`) with a permanent dynasty spirit:
 
@@ -161,6 +161,8 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
   wargoal on Roussillon (22, France), then claims on Sardinia (114), Sicily (115) and
   Naples (117), with a wargoal on Sardinia.
 - The capstone also cores the overseas states Catalonia fully controls.
+- Once *The Crown United* is done, the decision *Proclaim the Kingdom of Aragon* (50 PP)
+  renames the country *Kingdom of Aragon* (cosmetic tag `CAT_kingdom_of_aragon`).
 
 #### Home of Anarchy
 
@@ -219,6 +221,12 @@ Catalonia stability and fires `hcat_catalonia.3`.
 - Focus IDs use the `CAT_` / `SPR_` tag prefix, as vanilla does.
 - Vanilla files are never overwritten; content goes in new `hcat_*` files.
 - Localisation ships in English and Spanish (HoI4 has no Catalan language slot).
+- Country names: the other two paths keep the name "Catalonia". Vanilla calls a democratic
+  Catalonia "Catalonian Free Republic", so `localisation/*/replace/hcat_countries_l_*.yml`
+  overrides `CAT_democratic`. Mod cosmetic tags take a flag at `gfx/flags/<tag>.tga`
+  (plus `medium/` and `small/`) with no ideology suffix, so they show under any
+  government. Both are placeholder copies of vanilla flags: the Principat uses `CAT.tga`
+  (the senyera), the Kingdom of Aragon uses `CAT_aragon_neutrality.tga`.
   Files must be UTF-8 with BOM.
 - Script files under `common/` and `events/` must have **no** BOM: a BOM breaks the scripted
   effects file and every `hcat_` effect then reads as unknown. Keep them ASCII outside

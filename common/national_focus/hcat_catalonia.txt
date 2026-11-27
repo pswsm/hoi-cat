@@ -671,10 +671,6 @@ focus_tree = {
 				}
 				add_core_of = ROOT
 			}
-			if = {
-				limit = { has_government = neutrality }
-				set_cosmetic_tag = CAT_aragon
-			}
 		}
 		ai_will_do = { base = 10 }
 	}
