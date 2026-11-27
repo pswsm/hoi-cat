@@ -13,6 +13,7 @@ hcat_init = {
 		set_global_flag = hcat_initialised
 		set_variable = { global.hcat_autonomy = 50 }
 		set_variable = { global.hcat_autonomy_floor = 0 }
+		set_variable = { global.hcat_leverage = 0 }
 	}
 }
 
@@ -241,6 +242,52 @@ hcat_catalonia_after_the_civil_war = {
 			set_global_flag = hcat_catalonia_lost_the_civil_war
 		}
 	}
+
+	# Status quo path: what the side Catalonia chose earns it (hcat_catalonia.5).
+	if = {
+		limit = {
+			hcat_is_spain = yes
+			CAT = { exists = yes }
+		}
+		# Backed the Carlists and they won: the fueros restored, as a Federated State.
+		if = {
+			limit = {
+				hcat_is_carlist_spain = yes
+				CAT = {
+					has_country_flag = hcat_scw_side_carlist
+					is_subject_of = ROOT
+				}
+			}
+			set_autonomy = {
+				target = CAT
+				autonomous_state = hcat_autonomy_federated_state
+			}
+			CAT = { set_country_flag = hcat_backed_the_winner }
+			hcat_catalonia_becomes_a_federated_state = yes
+			CAT = { country_event = { id = hcat_catalonia.8 } }
+		}
+		# Backed the Republic and it won.
+		else_if = {
+			limit = {
+				hcat_is_republican_spain = yes
+				CAT = {
+					has_country_flag = hcat_scw_side_republic
+					is_subject_of = ROOT
+				}
+			}
+			CAT = { set_country_flag = hcat_backed_the_winner }
+		}
+		# Sat the war out: the winner decides what to do with Catalonia.
+		else_if = {
+			limit = {
+				CAT = {
+					has_country_flag = hcat_scw_side_neutral
+					is_subject = no
+				}
+			}
+			country_event = { id = hcat_spain.3 days = 1 }
+		}
+	}
 }
 
 # Country scope: Catalonia, from each hcat_crown_house_of_<house>, after
@@ -357,4 +404,130 @@ hcat_crown_house_of_urgell = {
 	set_country_flag = hcat_dynasty_urgell
 	add_ideas = hcat_house_of_urgell
 	add_war_support = 0.05
+}
+
+### Status quo: leverage, the civil war and federation ###
+# Catalan leverage in Madrid is global.hcat_leverage (0-100). Change it with
+#   add_to_variable = { global.hcat_leverage = <n> tooltip = hcat_leverage_change_tt }
+#   hcat_clamp_leverage = yes
+
+hcat_clamp_leverage = {
+	hidden_effect = {
+		clamp_variable = { var = global.hcat_leverage min = 0 max = 100 }
+	}
+}
+
+# Country scope: Catalonia, monthly. +2 while the status quo Catalonia fights in its
+# overlord's war.
+hcat_leverage_drift = {
+	if = {
+		limit = {
+			has_country_flag = hcat_path_status_quo
+			is_subject = yes
+			has_war = yes
+			OVERLORD = {
+				hcat_is_spain = yes
+				has_war = yes
+			}
+		}
+		add_to_variable = { global.hcat_leverage = 2 }
+		hcat_clamp_leverage = yes
+	}
+}
+
+# Country scope: Catalonia, daily. On the status quo path, the civil war starting asks
+# Catalonia to choose a side (hcat_catalonia.5) instead of joining the Republic
+# automatically. Other paths, and a status quo Catalonia that chose the Republic,
+# still follow the Republic.
+hcat_catalonia_daily_civil_war_check = {
+	if = {
+		limit = {
+			has_country_flag = hcat_path_status_quo
+			has_global_flag = spanish_civil_war
+			NOT = { has_global_flag = scw_over }
+			NOT = { has_country_flag = hcat_scw_side_chosen }
+			is_subject = yes
+			OVERLORD = {
+				hcat_is_spain = yes
+				has_civil_war = yes
+			}
+		}
+		set_country_flag = hcat_scw_side_chosen
+		country_event = { id = hcat_catalonia.5 }
+	}
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_country_flag = hcat_path_status_quo }
+				has_country_flag = hcat_scw_side_republic
+			}
+		}
+		hcat_catalonia_follow_the_republic = yes
+	}
+}
+
+# Country scope: Catalonia, a subject of a Spain in civil war. Leaves the war and the
+# subject relationship until the war is over.
+hcat_catalonia_declare_neutrality = {
+	OVERLORD = { save_event_target_as = hcat_former_overlord }
+	event_target:hcat_former_overlord = { end_puppet = ROOT }
+	every_country = {
+		limit = { has_war_with = ROOT }
+		white_peace = ROOT
+	}
+	add_ideas = hcat_armed_neutrality
+	add_to_variable = { global.hcat_autonomy = 15 tooltip = hcat_autonomy_change_tt }
+	hcat_clamp_autonomy = yes
+}
+
+# Country scope: Catalonia. Joins the Carlist side of the civil war, as their subject.
+# Works both from a Spanish subject and from a neutral (independent) Catalonia.
+hcat_catalonia_follow_the_carlists = {
+	random_country = {
+		limit = {
+			hcat_is_carlist_spain = yes
+			has_civil_war = yes
+		}
+		save_event_target_as = hcat_carlist_spain
+	}
+	if = {
+		limit = { has_event_target = hcat_carlist_spain }
+		if = {
+			limit = { is_subject = yes }
+			OVERLORD = { end_puppet = ROOT }
+		}
+		event_target:hcat_carlist_spain = {
+			puppet = ROOT
+			set_autonomy = {
+				target = ROOT
+				autonomous_state = hcat_autonomy_autonomous_community
+				end_wars = no
+				end_civil_wars = no
+			}
+		}
+		every_country = {
+			limit = {
+				hcat_is_spain = yes
+				has_war_with = event_target:hcat_carlist_spain
+			}
+			ROOT = {
+				add_to_war = {
+					targeted_alliance = event_target:hcat_carlist_spain
+					enemy = PREV
+					hostility_reason = asked_to_join
+				}
+			}
+		}
+		remove_ideas = hcat_armed_neutrality
+		set_country_flag = hcat_scw_side_carlist
+		clr_country_flag = hcat_scw_side_neutral
+	}
+}
+
+# Any scope. Catalonia is now a Federated State of Spain; settles the question.
+hcat_catalonia_becomes_a_federated_state = {
+	set_variable = { global.hcat_autonomy = 90 }
+	set_variable = { global.hcat_autonomy_floor = 80 }
+	set_global_flag = hcat_outcome_federation
+	hcat_settle_catalan_question = yes
 }

@@ -938,6 +938,10 @@ focus_tree = {
 	}
 
 	### Status quo ###
+	# Within Spain, then three columns (Madrid, the civil war, federalism) whose last
+	# focuses each open The Federal Republic. Columns sit at x 20-24. Most focuses add
+	# Catalan leverage in Madrid (global.hcat_leverage), which The Federal Republic and
+	# Spain's recentralising focuses check.
 
 	focus = {
 		id = CAT_within_spain
@@ -957,15 +961,42 @@ focus_tree = {
 			set_country_flag = hcat_path_status_quo
 			add_stability = 0.05
 			hcat_raise_autonomy_floor_to_30 = yes
+			add_to_variable = { global.hcat_leverage = 5 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+			custom_effect_tooltip = hcat_choose_a_side_in_the_war_tt
 		}
 		ai_will_do = { base = 3 }
+	}
+
+	# Madrid
+
+	focus = {
+		id = CAT_catalan_deputies_in_the_cortes
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = CAT_within_spain }
+		relative_position_id = CAT_within_spain
+		x = -2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+		}
+		completion_reward = {
+			set_country_flag = hcat_deputies_in_the_cortes
+			custom_effect_tooltip = hcat_unlocks_cortes_decisions_tt
+			add_to_variable = { global.hcat_leverage = 5 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 5 }
 	}
 
 	focus = {
 		id = CAT_the_statute_defended
 		icon = GFX_goal_support_democracy
-		prerequisite = { focus = CAT_within_spain }
-		relative_position_id = CAT_within_spain
+		prerequisite = { focus = CAT_catalan_deputies_in_the_cortes }
+		relative_position_id = CAT_catalan_deputies_in_the_cortes
 		x = 0
 		y = 1
 		cost = 10
@@ -982,10 +1013,71 @@ focus_tree = {
 	}
 
 	focus = {
-		id = CAT_industry_of_the_republic
-		icon = GFX_goal_generic_construct_civ_factory
+		id = CAT_a_catalan_minister
+		icon = GFX_goal_generic_improve_relations
 		prerequisite = { focus = CAT_the_statute_defended }
 		relative_position_id = CAT_the_statute_defended
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+		}
+		completion_reward = {
+			OVERLORD = { add_ideas = hcat_a_catalan_minister }
+			add_to_variable = { global.hcat_leverage = 15 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_kingmakers
+		icon = GFX_goal_generic_dangerous_deal
+		prerequisite = { focus = CAT_a_catalan_minister }
+		relative_position_id = CAT_a_catalan_minister
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+		}
+		completion_reward = {
+			set_global_flag = hcat_catalan_kingmakers
+			custom_effect_tooltip = hcat_kingmakers_tt
+			add_to_variable = { global.hcat_leverage = 10 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# The civil war
+
+	focus = {
+		id = CAT_arm_the_generalitat
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = CAT_within_spain }
+		relative_position_id = CAT_within_spain
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		completion_reward = {
+			army_experience = 10
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 producer = CAT }
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_industry_of_the_republic
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = CAT_arm_the_generalitat }
+		relative_position_id = CAT_arm_the_generalitat
 		x = 0
 		y = 1
 		cost = 10
@@ -1001,5 +1093,227 @@ focus_tree = {
 			}
 		}
 		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_war_committees
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = CAT_industry_of_the_republic }
+		relative_position_id = CAT_industry_of_the_republic
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
+		available = {
+			has_global_flag = spanish_civil_war
+		}
+		completion_reward = {
+			add_ideas = hcat_catalonia_at_war
+			add_to_variable = { global.hcat_leverage = 10 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_price_of_loyalty
+		icon = GFX_goal_generic_positive_trade_relations
+		prerequisite = { focus = CAT_the_war_committees }
+		relative_position_id = CAT_the_war_committees
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			has_global_flag = scw_over
+		}
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = hcat_backed_the_winner }
+				add_to_variable = { global.hcat_leverage = 25 tooltip = hcat_leverage_change_tt }
+				hcat_clamp_leverage = yes
+			}
+			else = {
+				add_to_variable = { global.hcat_leverage = 5 tooltip = hcat_leverage_change_tt }
+				hcat_clamp_leverage = yes
+			}
+			add_stability = 0.05
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# Federalism
+
+	focus = {
+		id = CAT_the_federal_tradition
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = CAT_within_spain }
+		relative_position_id = CAT_within_spain
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_political_power = 75
+			add_to_variable = { global.hcat_leverage = 5 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_federalist_press
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = CAT_the_federal_tradition }
+		relative_position_id = CAT_the_federal_tradition
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+		}
+		completion_reward = {
+			OVERLORD = { add_stability = -0.02 }
+			add_to_variable = { global.hcat_leverage = 10 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_galeuzca
+		icon = GFX_goal_generic_alliance
+		prerequisite = { focus = CAT_the_federalist_press }
+		relative_position_id = CAT_the_federalist_press
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+		}
+		completion_reward = {
+			# The Basque Country and Galicia join this pact in a later pass.
+			set_global_flag = hcat_galeuzca
+			add_to_variable = { global.hcat_leverage = 10 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_a_federal_constitution
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = CAT_galeuzca }
+		relative_position_id = CAT_galeuzca
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_subject = yes
+			OVERLORD = { hcat_is_spain = yes }
+		}
+		completion_reward = {
+			add_to_variable = { global.hcat_leverage = 10 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# Federation: any column's last focus opens it.
+
+	focus = {
+		id = CAT_the_federal_republic
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = CAT_the_kingmakers focus = CAT_the_price_of_loyalty focus = CAT_a_federal_constitution }
+		relative_position_id = CAT_within_spain
+		x = 0
+		y = 5
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			hcat_catalonia_can_demand_federation = yes
+		}
+		# Already federated (a Carlist victory): skip the demand.
+		bypass = {
+			has_autonomy_state = hcat_autonomy_federated_state
+		}
+		completion_reward = {
+			custom_effect_tooltip = hcat_demand_federation_tt
+			OVERLORD = { country_event = { id = hcat_spain.2 } }
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_a_federated_state
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = CAT_the_federal_republic }
+		mutually_exclusive = { focus = CAT_the_war_of_federation }
+		relative_position_id = CAT_the_federal_republic
+		x = -1
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		available = {
+			has_autonomy_state = hcat_autonomy_federated_state
+		}
+		completion_reward = {
+			add_ideas = hcat_federated_catalonia
+			165 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 10 }
+	}
+
+	focus = {
+		id = CAT_the_war_of_federation
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = CAT_the_federal_republic }
+		mutually_exclusive = { focus = CAT_a_federated_state }
+		relative_position_id = CAT_the_federal_republic
+		x = 1
+		y = 1
+		cost = 5
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER }
+		available = {
+			has_global_flag = hcat_war_of_federation
+		}
+		completion_reward = {
+			add_war_support = 0.10
+			hcat_raise_the_catalan_forces = yes
+		}
+		ai_will_do = { base = 10 }
+	}
+
+	focus = {
+		id = CAT_the_iberian_federation
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = CAT_a_federated_state focus = CAT_the_war_of_federation }
+		relative_position_id = CAT_the_federal_republic
+		x = 0
+		y = 2
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY }
+		available = {
+			OR = {
+				has_autonomy_state = hcat_autonomy_federated_state
+				AND = {
+					is_subject = no
+					NOT = { any_country = { hcat_is_spain = yes has_war_with = ROOT } }
+				}
+			}
+		}
+		completion_reward = {
+			add_research_slot = 1
+			add_stability = 0.05
+		}
+		ai_will_do = { base = 10 }
 	}
 }

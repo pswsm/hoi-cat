@@ -215,6 +215,55 @@ integration needs autonomy ≤ 25, so it must first break the pact: Recentralise
 and Abolish the Statute call `hcat_break_the_statute_pact`, which clears the floor, costs
 Catalonia stability and fires `hcat_catalonia.3`.
 
+#### Within Spain
+
+```
+                              Within Spain
+              /                    |                       \
+ Catalan Deputies in Cortes  Arm the Generalitat        The Federal Tradition
+ The Statute Defended        Industry of the Republic   The Federalist Press
+ A Catalan Minister          The War Committees         Galeuzca
+ The Kingmakers              The Price of Loyalty       A Federal Constitution
+              \                    |                       /
+                     The Federal Republic (any one column)
+                     /                                  \
+            A Federated State                   The War of Federation
+                     \                                  /
+                          The Iberian Federation
+```
+
+- **Leverage** (`global.hcat_leverage`, 0-100) is Catalonia's weight in Madrid. Change it
+  with `add_to_variable = { global.hcat_leverage = <n> tooltip = hcat_leverage_change_tt }`
+  then `hcat_clamp_leverage = yes`. Most focuses here add some. The Cortes decisions add it
+  (Lobby, Support the Government, Bring Down the Government, with 60-120 day cooldowns),
+  and so does fighting in Spain's war (+2 a month, `hcat_leverage_drift`). Spain can drain
+  10 with *Co-opt the Catalan Deputies*. It shows in the category description.
+- **The Kingmakers**: while leverage is 50 or more, Spain's Recentralise the Republic and
+  Abolish the Statute are unavailable (`hcat_catalan_leverage_allows_recentralisation`).
+- **The civil war**: the daily check (`hcat_catalonia_daily_civil_war_check`, which only
+  runs once vanilla sets `spanish_civil_war`) asks a status quo Catalonia to choose a side
+  (`hcat_catalonia.5`):
+  - *Republic*: follows the Republic as before, +5 leverage.
+  - *Armed neutrality*: leaves the subject relationship and makes peace with everyone, and
+    adds *Armed Neutrality*. When the war ends, the winner gets `hcat_spain.3`: welcome
+    Catalonia back as an Autonomous Community, or declare war. While neutral, the decision
+    *Answer the Carlist Call* joins the Carlists if they rise later.
+  - *Carlists*: only shown while a Carlist Spain (`SPR_carlist_spain_flag`) is in arms.
+    Catalonia becomes their subject. If they win, it becomes a **Federated State**
+    (`hcat_catalonia.8`, the fueros restored).
+  - Backing the winner sets `hcat_backed_the_winner`, worth +25 leverage in *The Price of
+    Loyalty* instead of +5.
+- **The Federal Republic**: needs any one column finished, plus leverage of 60 or more, or
+  Spain in a civil war or below 50% stability. It fires `hcat_spain.2`. *Accept* moves
+  Catalonia to the **Federated State** subject level
+  (`common/autonomous_states/hcat_federated_state.txt`: may refuse Spain's wars, cannot be
+  integrated). That sets autonomy 90, floor 80 and the federation outcome, and gives Spain
+  *A Federal Spain*. *Refuse* frees Catalonia, Spain declares war (`hcat_war_of_federation`)
+  and *The War of Federation* raises the Catalan forces. Either way the capstone,
+  *The Iberian Federation*, follows once Catalonia is federated or at peace with Spain.
+- *Galeuzca* only sets `hcat_galeuzca` for now. The Basque Country and Galicia join in a
+  later pass.
+
 ## Conventions
 
 - Mod-owned scripted effects, triggers, variables, flags, decisions and loc keys use the `hcat_` prefix.

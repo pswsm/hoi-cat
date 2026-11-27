@@ -79,3 +79,119 @@ country_event = {
 		hcat_crown_house_of_urgell = yes
 	}
 }
+
+# The civil war has begun: the status quo Catalonia chooses a side.
+# Fired by hcat_catalonia_daily_civil_war_check. ROOT is Catalonia.
+country_event = {
+	id = hcat_catalonia.5
+	title = hcat_catalonia.5.t
+	desc = hcat_catalonia.5.desc
+	picture = GFX_report_event_gathering_protest
+	is_triggered_only = yes
+
+	# Loyal to the Republic.
+	option = {
+		name = hcat_catalonia.5.a
+		ai_chance = { base = 5 }
+		set_country_flag = hcat_scw_side_republic
+		custom_effect_tooltip = hcat_side_with_the_republic_tt
+		hidden_effect = { hcat_catalonia_follow_the_republic = yes }
+		add_to_variable = { global.hcat_leverage = 5 tooltip = hcat_leverage_change_tt }
+		hcat_clamp_leverage = yes
+	}
+
+	# Armed neutrality.
+	option = {
+		name = hcat_catalonia.5.b
+		ai_chance = { base = 2 }
+		set_country_flag = hcat_scw_side_neutral
+		custom_effect_tooltip = hcat_declare_neutrality_tt
+		hcat_catalonia_declare_neutrality = yes
+	}
+
+	# With the Carlists, who promise the old fueros. Only while they are in arms.
+	option = {
+		name = hcat_catalonia.5.c
+		trigger = {
+			any_country = {
+				hcat_is_carlist_spain = yes
+				has_civil_war = yes
+			}
+		}
+		ai_chance = { base = 1 }
+		custom_effect_tooltip = hcat_join_the_carlists_tt
+		hidden_effect = { hcat_catalonia_follow_the_carlists = yes }
+	}
+}
+
+# Madrid accepts The Federal Republic. FROM is Spain.
+country_event = {
+	id = hcat_catalonia.6
+	title = hcat_catalonia.6.t
+	desc = hcat_catalonia.6.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	option = {
+		name = hcat_catalonia.6.a
+		add_stability = 0.05
+	}
+}
+
+# Madrid refuses The Federal Republic and sends the army. FROM is Spain.
+country_event = {
+	id = hcat_catalonia.7
+	title = hcat_catalonia.7.t
+	desc = hcat_catalonia.7.desc
+	picture = GFX_report_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = hcat_catalonia.7.a
+		add_war_support = 0.10
+	}
+}
+
+# The Carlists won with Catalonia at their side: the fueros restored.
+country_event = {
+	id = hcat_catalonia.8
+	title = hcat_catalonia.8.t
+	desc = hcat_catalonia.8.desc
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = hcat_catalonia.8.a
+		add_stability = 0.05
+	}
+}
+
+# The winner of the civil war welcomes the neutral Catalonia back.
+country_event = {
+	id = hcat_catalonia.9
+	title = hcat_catalonia.9.t
+	desc = hcat_catalonia.9.desc
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+
+	option = {
+		name = hcat_catalonia.9.a
+		add_to_variable = { global.hcat_leverage = 10 tooltip = hcat_leverage_change_tt }
+		hcat_clamp_leverage = yes
+	}
+}
+
+# The winner of the civil war punishes the neutral Catalonia.
+country_event = {
+	id = hcat_catalonia.10
+	title = hcat_catalonia.10.t
+	desc = hcat_catalonia.10.desc
+	picture = GFX_report_event_gathering_protest
+	is_triggered_only = yes
+
+	option = {
+		name = hcat_catalonia.10.a
+		add_war_support = 0.10
+		hcat_raise_the_catalan_forces = yes
+	}
+}

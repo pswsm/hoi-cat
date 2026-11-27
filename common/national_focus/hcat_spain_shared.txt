@@ -125,6 +125,7 @@ shared_focus = {
 	available = {
 		hcat_is_republican_spain = yes
 		hcat_catalonia_is_our_subject = yes
+		hcat_catalan_leverage_allows_recentralisation = yes
 	}
 
 	completion_reward = {
@@ -199,6 +200,7 @@ shared_focus = {
 	available = {
 		hcat_is_republican_spain = no
 		hcat_catalonia_is_our_subject = yes
+		hcat_catalan_leverage_allows_recentralisation = yes
 		has_civil_war = no
 	}
 

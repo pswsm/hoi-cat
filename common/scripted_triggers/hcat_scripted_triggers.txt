@@ -74,3 +74,35 @@ hcat_catalonia_can_press_for_autonomy = {
 	OVERLORD = { hcat_is_spain = yes }
 	hcat_catalan_question_settled = no
 }
+
+# Country scope. The Carlist side of Spain in the LaR civil war (vanilla alias SPB).
+hcat_is_carlist_spain = {
+	hcat_is_spain = yes
+	has_country_flag = SPR_carlist_spain_flag
+}
+
+# Any scope. Spain may break the Statute pact (Recentralise, Abolish) unless Catalonia
+# holds the balance in the Cortes: The Kingmakers done and leverage of 50 or more.
+hcat_catalan_leverage_allows_recentralisation = {
+	custom_trigger_tooltip = {
+		tooltip = hcat_catalan_leverage_allows_recentralisation_tt
+		NOT = {
+			has_global_flag = hcat_catalan_kingmakers
+			check_variable = { global.hcat_leverage > 49 }
+		}
+	}
+}
+
+# Country scope: Catalonia. The Federal Republic can be demanded: with leverage of 60
+# or more, or while Spain is in a civil war or below 50% stability.
+hcat_catalonia_can_demand_federation = {
+	hcat_catalonia_can_press_for_autonomy = yes
+	custom_trigger_tooltip = {
+		tooltip = hcat_catalonia_can_demand_federation_tt
+		OR = {
+			check_variable = { global.hcat_leverage > 59 }
+			OVERLORD = { has_civil_war = yes }
+			OVERLORD = { has_stability < 0.5 }
+		}
+	}
+}

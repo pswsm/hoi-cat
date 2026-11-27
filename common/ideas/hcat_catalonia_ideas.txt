@@ -291,5 +291,61 @@ ideas = {
 				send_volunteers_tension = -0.25
 			}
 		}
+
+		### Status quo ###
+
+		# Catalonia sat out the civil war (hcat_catalonia.5).
+		hcat_armed_neutrality = {
+			picture = generic_fortify_the_borders
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				army_defence_factor = 0.10
+				conscription = 0.01
+			}
+		}
+
+		hcat_catalonia_at_war = {
+			picture = generic_production_bonus
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				war_support_factor = 0.05
+			}
+		}
+
+		hcat_federated_catalonia = {
+			picture = generic_constitutional_guarantees
+			allowed = { original_tag = CAT }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				political_power_gain = 0.10
+				production_speed_buildings_factor = 0.10
+			}
+		}
+
+		# Spain: from CAT_a_catalan_minister.
+		hcat_a_catalan_minister = {
+			picture = generic_political_support
+			allowed = { original_tag = SPR }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				political_power_gain = 0.05
+			}
+		}
+
+		# Spain: accepted The Federal Republic (hcat_spain.2).
+		hcat_a_federal_spain = {
+			picture = generic_pp_unity_bonus
+			allowed = { original_tag = SPR }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = -0.05
+			}
+		}
 	}
 }

@@ -82,4 +82,104 @@ hcat_catalan_question = {
 		}
 		ai_will_do = { base = 10 }
 	}
+
+	# Status quo: the Catalan deputies in the Cortes (CAT_catalan_deputies_in_the_cortes).
+
+	hcat_lobby_in_the_cortes = {
+		icon = generic_speech
+		allowed = { original_tag = CAT }
+		visible = {
+			has_country_flag = hcat_deputies_in_the_cortes
+			hcat_catalonia_can_press_for_autonomy = yes
+		}
+		available = { hcat_catalonia_can_press_for_autonomy = yes }
+		cost = 50
+		fire_only_once = no
+		days_remove = 60
+		complete_effect = {
+			add_to_variable = { global.hcat_leverage = 5 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	hcat_support_the_government = {
+		icon = generic_civil_support
+		allowed = { original_tag = CAT }
+		visible = {
+			has_country_flag = hcat_deputies_in_the_cortes
+			hcat_catalonia_can_press_for_autonomy = yes
+		}
+		available = { hcat_catalonia_can_press_for_autonomy = yes }
+		cost = 75
+		fire_only_once = no
+		days_remove = 90
+		complete_effect = {
+			OVERLORD = { add_stability = 0.02 }
+			add_to_variable = { global.hcat_leverage = 5 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+			add_to_variable = { global.hcat_autonomy = 3 tooltip = hcat_autonomy_change_tt }
+			hcat_clamp_autonomy = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	hcat_bring_down_the_government = {
+		icon = generic_political_discourse
+		allowed = { original_tag = CAT }
+		visible = {
+			has_country_flag = hcat_deputies_in_the_cortes
+			hcat_catalonia_can_press_for_autonomy = yes
+		}
+		available = { hcat_catalonia_can_press_for_autonomy = yes }
+		cost = 75
+		fire_only_once = no
+		days_remove = 120
+		complete_effect = {
+			OVERLORD = { add_stability = -0.03 }
+			add_to_variable = { global.hcat_leverage = 10 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# Spain: buy off the Catalan deputies.
+
+	hcat_co_opt_the_catalan_deputies = {
+		icon = generic_political_discourse
+		allowed = { original_tag = SPR }
+		visible = {
+			hcat_catalonia_is_our_subject = yes
+			hcat_catalan_question_settled = no
+			check_variable = { global.hcat_leverage > 0 }
+		}
+		cost = 50
+		fire_only_once = no
+		days_remove = 90
+		complete_effect = {
+			add_to_variable = { global.hcat_leverage = -10 tooltip = hcat_leverage_change_tt }
+			hcat_clamp_leverage = yes
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# Status quo, neutral in the civil war: join the Carlists once they rise.
+	hcat_answer_the_carlist_call = {
+		icon = generic_military
+		allowed = { original_tag = CAT }
+		visible = {
+			has_country_flag = hcat_scw_side_neutral
+			any_country = {
+				hcat_is_carlist_spain = yes
+				has_civil_war = yes
+			}
+		}
+		cost = 25
+		fire_only_once = yes
+		complete_effect = {
+			custom_effect_tooltip = hcat_join_the_carlists_tt
+			hidden_effect = { hcat_catalonia_follow_the_carlists = yes }
+		}
+		ai_will_do = { base = 1 }
+	}
 }

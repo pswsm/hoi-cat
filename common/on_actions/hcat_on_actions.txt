@@ -8,16 +8,20 @@ on_actions = {
 	}
 
 	# There is no on_action for a civil war starting, so Catalonia checks daily.
-	# The check is a few cheap triggers on a single country.
+	# Nothing runs before vanilla sets the spanish_civil_war global flag.
 	on_daily_CAT = {
 		effect = {
-			hcat_catalonia_follow_the_republic = yes
+			if = {
+				limit = { has_global_flag = spanish_civil_war }
+				hcat_catalonia_daily_civil_war_check = yes
+			}
 		}
 	}
 
 	on_monthly_CAT = {
 		effect = {
 			hcat_spanish_weakness_drift = yes
+			hcat_leverage_drift = yes
 		}
 	}
 
