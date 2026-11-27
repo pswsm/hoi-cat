@@ -128,7 +128,8 @@ country_event = {
 	}
 }
 
-# The Corts deliberate; last chance to lobby. Queued for day 31 of the focus.
+# The Corts deliberate; last chance to sway them. Queued for day 31 of the focus.
+# Lobbying moved to hcat_crown.6 so neither event has more options than fit.
 country_event = {
 	id = hcat_crown.5
 	title = hcat_crown.5.t
@@ -152,32 +153,45 @@ country_event = {
 	option = {
 		name = hcat_crown.5.b
 		trigger = { has_political_power > 24 }
-		ai_chance = { base = 1 }
+		ai_chance = { base = 2 }
 		add_political_power = -25
+		country_event = { id = hcat_crown.6 }
+	}
+}
+
+# Which house to win votes for, after hcat_crown.5's lobbying option (25 PP paid).
+country_event = {
+	id = hcat_crown.6
+	title = hcat_crown.6.t
+	desc = hcat_crown.6.desc
+	picture = GFX_report_event_generic_parliament
+	is_triggered_only = yes
+
+	trigger = {
+		focus_progress = { focus = CAT_the_count_of_barcelona progress > 0 }
+	}
+
+	option = {
+		name = hcat_crown.6.a
+		ai_chance = { base = 1 }
 		add_to_variable = { hcat_claim_bourbon = 3 tooltip = hcat_claim_bourbon_tt }
 	}
 
 	option = {
-		name = hcat_crown.5.c
-		trigger = { has_political_power > 24 }
+		name = hcat_crown.6.b
 		ai_chance = { base = 1 }
-		add_political_power = -25
 		add_to_variable = { hcat_claim_barcelona = 3 tooltip = hcat_claim_barcelona_tt }
 	}
 
 	option = {
-		name = hcat_crown.5.d
-		trigger = { has_political_power > 24 }
+		name = hcat_crown.6.c
 		ai_chance = { base = 1 }
-		add_political_power = -25
 		add_to_variable = { hcat_claim_habsburg = 3 tooltip = hcat_claim_habsburg_tt }
 	}
 
 	option = {
-		name = hcat_crown.5.e
-		trigger = { has_political_power > 24 }
+		name = hcat_crown.6.d
 		ai_chance = { base = 1 }
-		add_political_power = -25
 		add_to_variable = { hcat_claim_urgell = 3 tooltip = hcat_claim_urgell_tt }
 	}
 }

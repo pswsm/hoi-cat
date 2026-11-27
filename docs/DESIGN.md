@@ -132,8 +132,10 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
   takes 35 days. Its `select_effect` (`hcat_start_the_crown_contest`) sets base support in
   four country variables, `hcat_claim_<house>` (Bourbon 4, Barcelona 4, Habsburg 2,
   Urgell 2), and queues five events (`events/hcat_crown.txt`, days 3, 10, 17, 24, 31).
-  Each event's options add support to one or more houses, and the last one lets you spend
-  25 PP to add 3 to one house. Their descriptions show the current standings. An event
+  Each event's options add support to one or more houses. The last one lets you spend
+  25 PP, then `hcat_crown.6` asks which house gets +3 (split so no event has more options
+  than fit). Descriptions avoid colour codes: yellow text is unreadable on the event
+  paper. Their descriptions show the current standings. An event
   only fires while the focus is still in progress, and only once per contest, so
   cancelling the focus stops it. On completion `hcat_crown_the_leading_claimant` crowns the
   leader (ties go to Barcelona, Bourbon, Habsburg, then Urgell) and announces it with
