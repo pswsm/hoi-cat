@@ -1,0 +1,46 @@
+﻿# HoI IV - Catalunya: the confederal militia columns raised by The Militia Columns
+# (Home of Anarchy). Loaded with load_oob = "hcat_CAT_militia_columns".
+# UTF-8 with BOM, like vanilla OOB files.
+
+division_template = {
+	name = "Columna Confederal"
+	priority = 0
+	regiments = {
+		militia = { x = 0 y = 0 }
+		militia = { x = 0 y = 1 }
+		militia = { x = 0 y = 2 }
+		militia = { x = 1 y = 0 }
+		militia = { x = 1 y = 1 }
+		militia = { x = 1 y = 2 }
+		infantry = { x = 2 y = 0 }
+		infantry = { x = 2 y = 1 }
+		infantry = { x = 2 y = 2 }
+	}
+}
+
+units = {
+	division = {
+		name = "Columna Durruti"
+		location = 9764  # Barcelona
+		division_template = "Columna Confederal"
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.8
+		start_manpower_factor = 1
+	}
+	division = {
+		name = "Columna Ascaso"
+		location = 9764  # Barcelona
+		division_template = "Columna Confederal"
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.8
+		start_manpower_factor = 1
+	}
+	division = {
+		name = "Columna Ortiz"
+		location = 9764  # Barcelona
+		division_template = "Columna Confederal"
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.8
+		start_manpower_factor = 1
+	}
+}

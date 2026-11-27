@@ -67,4 +67,21 @@ characters = {
 			id = -1
 		}
 	}
+
+	# Home of Anarchy: the Central Committee of Antifascist Militias, a collective
+	# leadership like vanilla's SPR_anarchist_commune (whose portrait it reuses).
+	CAT_the_central_committee_of_militias = {
+		name = CAT_the_central_committee_of_militias
+		portraits = {
+			civilian = {
+				large = GFX_portrait_SPR_anarchist_commune
+			}
+		}
+		country_leader = {
+			ideology = anarchism
+			traits = { }
+			expire = "1977.1.1.1"
+			id = -1
+		}
+	}
 }

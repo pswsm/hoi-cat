@@ -15,7 +15,8 @@
 # Mediterranean Democracy has three columns (politics, economy, foreign policy and
 # defence) that meet in CAT_the_beacon_of_the_mediterranean. Restore the Crown of Arago
 # has three (the Crown, the lands of the Crown, the sea) that meet in
-# CAT_the_crown_of_aragon_reborn. See docs/DESIGN.md.
+# CAT_the_crown_of_aragon_reborn. Home of Anarchy has three (the revolution, the
+# collectives, the people in arms) that meet in CAT_the_rose_of_fire. See docs/DESIGN.md.
 
 focus_tree = {
 	id = hcat_catalan_focus
@@ -691,8 +692,253 @@ focus_tree = {
 		available = { is_subject = no }
 		completion_reward = {
 			set_country_flag = hcat_path_home_of_anarchy
+			recruit_character = CAT_the_central_committee_of_militias
+			set_politics = { ruling_party = neutrality elections_allowed = no }
+			add_popularity = { ideology = neutrality popularity = 0.20 }
+			promote_character = { character = CAT_the_central_committee_of_militias ideology = anarchism }
+			add_ideas = hcat_the_july_revolution
 		}
 		ai_will_do = { base = 1 }
+	}
+
+	### Home of Anarchy ###
+	# Three columns (the revolution, the collectives, the people in arms) that meet in
+	# The Rose of Fire. Columns sit at x 14-18, between the Crown of Arago and the
+	# status quo.
+
+	# The revolution
+
+	focus = {
+		id = CAT_libertarian_communism
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = CAT_home_of_anarchy }
+		relative_position_id = CAT_home_of_anarchy
+		x = -2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			swap_ideas = { remove_idea = hcat_the_july_revolution add_idea = hcat_the_free_communes }
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_modern_school
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = CAT_libertarian_communism }
+		relative_position_id = CAT_libertarian_communism
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_ideas = hcat_the_modern_school
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_mujeres_libres
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = CAT_the_modern_school }
+		relative_position_id = CAT_the_modern_school
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_ideas = hcat_mujeres_libres
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_free_federation
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = CAT_mujeres_libres }
+		relative_position_id = CAT_mujeres_libres
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			swap_ideas = { remove_idea = hcat_the_free_communes add_idea = hcat_the_free_federation }
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# The collectives
+
+	focus = {
+		id = CAT_the_collectives
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = CAT_home_of_anarchy }
+		relative_position_id = CAT_home_of_anarchy
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = hcat_workers_self_management
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_council_of_economy
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = CAT_the_collectives }
+		relative_position_id = CAT_the_collectives
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_war_industries_commission
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = CAT_the_council_of_economy }
+		relative_position_id = CAT_the_council_of_economy
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			165 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_supply_committees
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = CAT_the_war_industries_commission }
+		relative_position_id = CAT_the_war_industries_commission
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = hcat_the_supply_committees
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	# The people in arms
+
+	focus = {
+		id = CAT_the_militia_columns
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = CAT_home_of_anarchy }
+		relative_position_id = CAT_home_of_anarchy
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
+		completion_reward = {
+			add_ideas = hcat_the_people_in_arms
+			custom_effect_tooltip = hcat_raise_the_militia_columns_tt
+			hidden_effect = { load_oob = "hcat_CAT_militia_columns" }
+		}
+		ai_will_do = { base = 5 }
+	}
+
+	focus = {
+		id = CAT_the_aragon_front
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = CAT_the_militia_columns }
+		relative_position_id = CAT_the_militia_columns
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		bypass = {
+			owns_state = 166
+			owns_state = 794
+		}
+		completion_reward = {
+			add_state_claim = 166
+			add_state_claim = 794
+			if = {
+				limit = { 166 = { NOT = { is_controlled_by = ROOT } } }
+				create_wargoal = {
+					type = take_state_focus
+					target = 166.controller
+					generator = { 166 794 }
+				}
+			}
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_antifascist_front
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = CAT_the_aragon_front }
+		relative_position_id = CAT_the_aragon_front
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available = {
+			is_in_faction = no
+			NOT = { has_government = fascism }
+			any_other_country = { has_government = fascism }
+		}
+		completion_reward = {
+			set_rule = { can_create_factions = yes }
+			create_faction_from_template = {
+				template = faction_template_anti_fascist
+				name = hcat_the_antifascist_front
+			}
+			add_war_support = 0.05
+		}
+		ai_will_do = { base = 2 }
+	}
+
+	focus = {
+		id = CAT_the_international_workers_association
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = CAT_the_antifascist_front }
+		relative_position_id = CAT_the_antifascist_front
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_ideas = hcat_the_international
+		}
+		ai_will_do = { base = 3 }
+	}
+
+	focus = {
+		id = CAT_the_rose_of_fire
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = CAT_the_free_federation }
+		prerequisite = { focus = CAT_the_supply_committees }
+		prerequisite = { focus = CAT_the_international_workers_association }
+		relative_position_id = CAT_home_of_anarchy
+		x = 0
+		y = 6
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			swap_ideas = { remove_idea = hcat_the_free_federation add_idea = hcat_the_rose_of_fire }
+			army_experience = 25
+		}
+		ai_will_do = { base = 10 }
 	}
 
 	### Status quo ###

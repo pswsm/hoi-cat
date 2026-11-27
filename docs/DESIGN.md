@@ -78,7 +78,7 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
                |                              |
   Proclaim the Catalan State (≥ 80)     Industry of the Republic
      /         |          \
- Mediterranean  Crown of   Home of        (Anarchy: TODO)
+ Mediterranean  Crown of   Home of
  Democracy      Aragó      Anarchy
 ```
 
@@ -162,6 +162,37 @@ into `spanish_focus`, to the right of the vanilla tree (x 66–71).
   Naples (117), with a wargoal on Sardinia.
 - The capstone also cores the overseas states Catalonia fully controls.
 
+#### Home of Anarchy
+
+```
+                    Home of Anarchy (+The July Revolution)
+              /                    |                        \
+ Libertarian Communism     The Collectives              The Militia Columns
+              |                    |                        |
+ The Modern School         The Council of Economy       The Aragon Front
+              |                    |                        |
+ Mujeres Libres            War Industries Commission    The Antifascist Front
+              |                    |                        |
+ The Free Federation       The Supply Committees        The IWA
+              \                    |                       /
+                            The Rose of Fire
+```
+
+- The root makes the government non-aligned without elections and promotes the *Central
+  Committee of Antifascist Militias* (`CAT_the_central_committee_of_militias`,
+  `anarchism`, vanilla's anarchist-commune portrait), and adds *The July Revolution*
+  (−10% stability, PP and construction, +10% war support).
+- The revolution: *The July Revolution* becomes *The Free Communes*, then *The Free
+  Federation*, and the capstone turns that into *The Rose of Fire*. On the way are research
+  (*The Modern School*) and manpower and stability (*Mujeres Libres*).
+- The collectives: a self-management spirit (faster civilian factory construction,
+  slower efficiency growth), two civilian factories, two military factories, and cheaper
+  consumer goods.
+- The people in arms: *The People in Arms* spirit, plus three *Columna Confederal* militia
+  divisions (Durruti, Ascaso, Ortiz; OOB `history/units/hcat_CAT_militia_columns.txt`).
+  Then claims and a wargoal on Aragon, a faction from `faction_template_anti_fascist`
+  (needs a fascist country to exist), and a volunteers spirit.
+
 **Raising autonomy**: focuses; two repeatable decisions in "The Catalan Question"
 (Negotiate Competences, 50 PP, +5 every 90 days; Mobilise Civil Society, 75 PP, +8 every
 120 days, unlocked by its focus); and Spanish weakness, +2 a month while Spain is in a civil
@@ -174,7 +205,7 @@ Spain. It also raises the Catalan forces in Barcelona
 núm. 1* mountaineer division. *Let Catalonia go* frees it peacefully and settles the question as independence.
 *Crush the separatists* frees it and Spain declares an annexation war
 (`hcat_war_of_catalan_independence`). The AI mostly refuses unless it is in a civil war or
-below 30% stability. The three ideological focuses need Catalonia to be independent.
+below 30% stability. The three ideological focuses need Catalonia to be independent, and taking one locks out the other two.
 
 **Status quo**: Within Spain and The Statute Defended set an autonomy floor
 (`global.hcat_autonomy_floor`, enforced by `hcat_clamp_autonomy`) of 30, then 40. Spain's
