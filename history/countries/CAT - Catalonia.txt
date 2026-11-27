@@ -37,6 +37,10 @@ set_convoys = 20
 # Skipped for later bookmarks, where Catalonia is back under direct Spanish rule.
 if = {
 	limit = { has_start_date < 1938.01.01 }
+	# HCAT: a stronger start for a small nation (vanilla 165 has 1 civilian factory).
+	165 = {
+		add_building_construction = { type = industrial_complex level = 3 instant_build = yes }
+	}
 	SPR = {
 		set_autonomy = {
 			target = CAT

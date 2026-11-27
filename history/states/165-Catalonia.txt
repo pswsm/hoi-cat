@@ -1,5 +1,6 @@
 # HCAT override of vanilla 1.20.0 history/states/165-Catalonia.txt.
-# Changes: owner = CAT in 1936 (Generalitat), back to SPR from 1939.
+# Changes: owner = CAT in 1936 (Generalitat), back to SPR from 1939;
+# steel 8 and aluminium 4 added to the resources.
 
 
 state={
@@ -9,6 +10,9 @@ state={
 
 	resources = {
 		coal = 2 #initial distribution
+		# HCAT: the metal industry of the Barcelona area.
+		steel = 8
+		aluminium = 4
 	}
 	
 	state_category = large_city
